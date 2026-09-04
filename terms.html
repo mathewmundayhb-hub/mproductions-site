@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#000000" name="theme-color"/>
+<title>Terms &amp; Cancellation — Mproductions</title>
+<style>
+:root{--text:#f4f1f5;--muted:#b6acb8;--line:#403842}
+*{box-sizing:border-box}html,body{margin:0;background:#000;color:var(--text)}
+body{font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:
+radial-gradient(ellipse at 8% 15%,rgba(105,55,96,.20),transparent 35%),
+radial-gradient(ellipse at 90% 58%,rgba(40,86,88,.16),transparent 35%),
+radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 72% 12%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 85% 75%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 35% 82%,#fff 0 1px,transparent 1.5px);opacity:.8}
+.page{position:relative;width:min(900px,92vw);margin:0 auto;padding:45px 0 90px}
+.top{display:flex;justify-content:space-between;gap:20px;align-items:center;padding-bottom:24px;border-bottom:1px solid #342e37}
+.brand{text-transform:uppercase;letter-spacing:.18em;font-size:14px}
+.home{color:#afa4b1;text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font:12px Arial,sans-serif}
+h1{font-size:clamp(38px,7vw,68px);font-weight:500;text-transform:uppercase;line-height:1;margin:60px 0 15px}
+.lead,.card p,.card li{font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+.lead{font-size:18px;color:var(--muted);max-width:760px}
+.card{border:1px solid var(--line);background:rgba(5,5,6,.94);padding:29px;margin:17px 0;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.card.notice{border-color:#665a6a;background:linear-gradient(145deg,rgba(98,58,94,.08),rgba(5,5,6,.96))}
+h2{font-size:25px;font-weight:500;text-transform:uppercase;margin:0 0 13px}
+.card p,.card li{font-size:15px;color:#c3bac6}
+.card a{color:#ddd2e0}.card ul,.card ol{padding-left:21px}
+.button{display:inline-flex;min-height:46px;padding:0 17px;align-items:center;border:1px solid #746a78;background:#181419;color:#fff!important;text-decoration:none;text-transform:uppercase;letter-spacing:.1em;font:700 12px Arial,sans-serif}
+.small{font:12px/1.6 Arial,sans-serif;color:#857b88;margin-top:25px}
+
+    /* Cosmic page transitions */
+    .space-page{
+      animation:spacePageIn .72s cubic-bezier(.22,.72,.18,1) both;
+    }
+    @keyframes spacePageIn{
+      0%{opacity:0;filter:blur(8px);transform:scale(1.018)}
+      55%{opacity:1;filter:blur(2px)}
+      100%{opacity:1;filter:blur(0);transform:scale(1)}
+    }
+    .space-transition{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      pointer-events:none;
+      opacity:0;
+      visibility:hidden;
+      overflow:hidden;
+      background:#000;
+      transition:opacity .12s linear,visibility 0s linear .7s;
+    }
+    .space-transition.is-active{
+      opacity:1;
+      visibility:visible;
+      transition:opacity .08s linear;
+    }
+    .warp-core{
+      position:absolute;
+      left:50%;top:50%;
+      width:12px;height:12px;
+      border-radius:50%;
+      transform:translate(-50%,-50%) scale(.01);
+      background:radial-gradient(circle,#fff 0 8%,rgba(228,217,235,.92) 9% 16%,rgba(145,112,156,.55) 24%,rgba(30,15,38,.15) 52%,transparent 72%);
+      box-shadow:0 0 40px rgba(225,213,232,.6),0 0 120px rgba(135,88,149,.28);
+    }
+    .space-transition.is-active .warp-core{
+      animation:warpCore .66s cubic-bezier(.18,.72,.2,1) forwards;
+    }
+    @keyframes warpCore{
+      0%{transform:translate(-50%,-50%) scale(.01);opacity:.4}
+      35%{opacity:1}
+      100%{transform:translate(-50%,-50%) scale(115);opacity:0}
+    }
+
+    .warp-nebula{
+      position:absolute;
+      width:70vw;height:34vw;
+      min-width:560px;min-height:260px;
+      border-radius:50%;
+      filter:blur(48px);
+      opacity:0;
+      mix-blend-mode:screen;
+    }
+    .warp-nebula-one{
+      left:-20vw;top:18vh;
+      background:radial-gradient(ellipse,rgba(152,78,135,.58),rgba(79,37,91,.22) 42%,transparent 72%);
+      transform:rotate(-12deg) translateX(-8vw);
+    }
+    .warp-nebula-two{
+      right:-24vw;bottom:6vh;
+      background:radial-gradient(ellipse,rgba(50,115,118,.42),rgba(25,61,68,.18) 44%,transparent 74%);
+      transform:rotate(12deg) translateX(8vw);
+    }
+    .space-transition.is-active .warp-nebula-one{animation:nebulaSweepOne .62s ease-out forwards}
+    .space-transition.is-active .warp-nebula-two{animation:nebulaSweepTwo .66s ease-out forwards}
+    @keyframes nebulaSweepOne{
+      0%{opacity:0;transform:rotate(-12deg) translateX(-18vw) scale(.82)}
+      42%{opacity:.65}
+      100%{opacity:0;transform:rotate(-4deg) translateX(22vw) scale(1.25)}
+    }
+    @keyframes nebulaSweepTwo{
+      0%{opacity:0;transform:rotate(12deg) translateX(18vw) scale(.82)}
+      42%{opacity:.52}
+      100%{opacity:0;transform:rotate(4deg) translateX(-22vw) scale(1.25)}
+    }
+
+    .warp-streaks{
+      position:absolute;
+      inset:-40%;
+      left:50%;top:50%;
+      width:180%;height:180%;
+      transform:translate(-50%,-50%) scale(.12);
+      opacity:0;
+      background:
+        repeating-conic-gradient(
+          from 0deg,
+          rgba(255,255,255,.72) 0deg .18deg,
+          transparent .2deg 3.1deg,
+          rgba(187,166,196,.36) 3.2deg 3.34deg,
+          transparent 3.38deg 6.2deg
+        );
+      -webkit-mask-image:radial-gradient(circle at center,transparent 0 3%,#000 10%,#000 44%,transparent 72%);
+      mask-image:radial-gradient(circle at center,transparent 0 3%,#000 10%,#000 44%,transparent 72%);
+      filter:blur(.45px);
+    }
+    .space-transition.is-active .warp-streaks{
+      animation:warpStreaks .58s cubic-bezier(.16,.75,.22,1) forwards;
+    }
+    @keyframes warpStreaks{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.08) rotate(0deg)}
+      22%{opacity:.72}
+      100%{opacity:0;transform:translate(-50%,-50%) scale(2.2) rotate(3deg)}
+    }
+
+    .space-nav-exit{
+      animation:spacePageOut .52s cubic-bezier(.55,.02,.74,.42) forwards !important;
+    }
+    @keyframes spacePageOut{
+      0%{opacity:1;filter:blur(0);transform:scale(1)}
+      100%{opacity:.08;filter:blur(6px);transform:scale(.985)}
+    }
+
+    @media(max-width:760px){
+      .warp-nebula{filter:blur(36px)}
+      .space-transition.is-active .warp-core{animation-duration:.56s}
+      .space-transition.is-active .warp-streaks{animation-duration:.5s}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .space-page{animation:none!important}
+      .space-nav-exit{animation:none!important}
+      .warp-core,.warp-nebula,.warp-streaks{animation:none!important}
+      .space-transition.is-active{opacity:1;background:#000}
+    }
+    </style>
+</head>
+<body class="space-page"><div aria-hidden="true" class="space-transition" id="spaceTransition">
+<div class="warp-core"></div>
+<div class="warp-nebula warp-nebula-one"></div>
+<div class="warp-nebula warp-nebula-two"></div>
+<div class="warp-streaks"></div>
+</div>
+<main class="page">
+<div class="top"><div class="brand">Mproductions</div><a class="home" href="/">Back to studio</a></div>
+<h1>Terms &amp; Cancellation</h1>
+<p class="lead">These terms explain the 50/50 payment structure, revisions, cancellation and how the final balance works. Last updated: 4 September 2026.</p>
+<section class="card notice">
+<h2>50% deposit, then you decide</h2>
+<p><strong>You pay 50% of the full project price when you book.</strong> After you receive the first revision, you decide whether you want to continue working with Mproductions. If you continue, Mproductions sends a secure Stripe payment link by email for the remaining 50%.</p>
+<p><strong>The second 50% is not taken automatically from your card or bank account.</strong> You must actively open and pay the second Stripe link.</p>
+</section>
+<section class="card">
+<h2>1. Services</h2>
+<p>These terms apply to mixing, mastering, production, editing, vocal tuning, drum alignment, synth work and related audio-production services purchased from Mproductions.</p>
+</section>
+<section class="card">
+<h2>2. Price and the 50/50 payment plan</h2>
+<ul>
+<li>The website shows the full project price before checkout, including any multi-track discount.</li>
+<li>50% of that full project price is payable when the booking is made.</li>
+<li>The remaining 50% is only due after the first revision if the client chooses to continue.</li>
+<li>If the client chooses to continue, Mproductions emails the balance-payment link to the email address supplied at Stripe checkout.</li>
+<li>The client makes the second payment themselves through Stripe. Mproductions does not automatically debit the remaining balance.</li>
+<li>The second payment completes payment for the originally agreed project, unless the client later requests additional work outside the original scope.</li>
+</ul>
+</section>
+<section class="card">
+<h2>3. Email and payment information</h2>
+<p>Stripe Checkout asks for the client's email address before payment details. Mproductions uses the booking email for payment administration, project communication and, where appropriate, sending the remaining 50% payment link after the first revision. Mproductions does not receive or store the client's full card number.</p>
+</section>
+<section class="card">
+<h2>4. First revision and continuation</h2>
+<p>The first revision is the decision point for the second payment. After receiving it, the client can either continue or stop.</p>
+<ul>
+<li><strong>Continue:</strong> the client confirms they wish to continue and pays the remaining 50% using the Stripe link sent by Mproductions.</li>
+<li><strong>Stop:</strong> the client does not make the second payment. Any refund due from the initial 50% is determined by these terms and applicable consumer law, including the work already carried out.</li>
+</ul>
+</section>
+<section class="card">
+<h2>5. Consumer cancellation rights</h2>
+<p>If the client is contracting as a consumer online, statutory cancellation rights may apply, including a 14-day cancellation period in relevant circumstances. If the client expressly asks Mproductions to begin work during that cancellation period and later cancels after work has begun, the client may have to pay a proportionate amount for services already supplied, as permitted by law.</p>
+<p>These terms do not remove or reduce any statutory rights that cannot legally be excluded.</p>
+</section>
+<section class="card">
+<h2>6. Deposit and refunds</h2>
+<p>The initial 50% is part-payment toward the agreed project and is not described as automatically non-refundable in every situation. Where a cancellation or refund request is made, the amount due back will depend on the circumstances, applicable law and the amount of work already performed.</p>
+</section>
+<section class="card">
+<h2>7. Revisions and changes of scope</h2>
+<p>The selected package includes the stated number of revisions. A revision means a reasonable set of changes within the agreed project direction. Replacement recordings, a substantially changed brief, new production requirements or significant additional work can require a separate quote.</p>
+</section>
+<section class="card">
+<h2>8. Turnaround and client materials</h2>
+<p>Typical delivery is usually within two weeks, but timing can vary according to project size, response times, technical issues and revision requests. The client confirms that they have the right to provide the recordings, stems, samples and other materials supplied to Mproductions.</p>
+</section>
+<section class="card">
+<h2>9. Final delivery</h2>
+<p>Where the client chooses to continue after the first revision, final approved masters and final production deliverables are released after the project is complete and all amounts due for the agreed project have been paid.</p>
+</section>
+<section class="card">
+<h2>10. How to cancel</h2>
+<p>Send a clear cancellation request to <a href="mailto:mathewmundayhb@gmail.com?subject=Mproductions%20Cancellation%20Request">mathewmundayhb@gmail.com</a> and include the booking name, booking email, artist/project name and booking date.</p>
+<a class="button" href="mailto:mathewmundayhb@gmail.com?subject=Mproductions%20Cancellation%20Request&amp;body=I%20wish%20to%20cancel%20my%20Mproductions%20service%20contract.%0A%0AName%3A%0ABooking%20email%3A%0AArtist%20%2F%20project%3A%0ABooking%20date%3A%0A">Start cancellation email</a>
+</section>
+<section class="card">
+<h2>11. Contact</h2>
+<p>For service, payment or cancellation questions, contact <a href="mailto:mathewmundayhb@gmail.com">mathewmundayhb@gmail.com</a>.</p>
+</section>
+<p class="small">This is a practical website terms draft, not legal advice. Before relying on it as final legal wording, Mproductions should have it reviewed for its exact business circumstances and add any legally required trader/business address and identification details.</p>
+</main>
+<script>
+(function(){
+  const overlay = document.getElementById('spaceTransition');
+  if(!overlay) return;
+
+  function sameSitePageLink(a){
+    if(!a || !a.href) return false;
+    if(a.target === '_blank' || a.hasAttribute('download')) return false;
+    if(a.href.startsWith('mailto:') || a.href.startsWith('tel:')) return false;
+
+    const u = new URL(a.href, location.href);
+    if(u.origin !== location.origin) return false;
+
+    // Keep in-page anchors immediate.
+    const current = new URL(location.href);
+    if(u.pathname === current.pathname && u.search === current.search && u.hash) return false;
+
+    return true;
+  }
+
+  document.addEventListener('click', function(e){
+    const a = e.target.closest('a');
+    if(!sameSitePageLink(a)) return;
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+    e.preventDefault();
+    overlay.classList.add('is-active');
+    document.body.classList.add('space-nav-exit');
+
+    const href = a.href;
+    window.setTimeout(function(){ location.href = href; }, 520);
+  });
+
+  // Remove stale transition state when returning from browser back/forward cache.
+  window.addEventListener('pageshow', function(){
+    overlay.classList.remove('is-active');
+    document.body.classList.remove('space-nav-exit');
+  });
+})();
+</script></body>
+</html>
