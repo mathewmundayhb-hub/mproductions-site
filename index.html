@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#000000" name="theme-color"/>
+<title>Mproductions — Mixing, Mastering &amp; Production</title>
+<meta content="Professional mixing, mastering and production." name="description"/>
+<style>
+    :root{
+      --bg:#000;
+      --panel:#050506;
+      --panel2:#09080b;
+      --line:#39323d;
+      --line2:#827588;
+      --text:#f6f2f7;
+      --muted:#b7adb9;
+      --soft:#7a707c;
+      --shadow:0 34px 110px rgba(0,0,0,.92);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      margin:0;
+      background:#000;
+      color:var(--text);
+      font-family:Georgia,"Times New Roman",serif;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .cosmos{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;background:#000}
+    header,main,footer,.topline{position:relative;z-index:2}
+    .star{
+      position:absolute;border-radius:50%;background:#fff;
+      box-shadow:0 0 7px rgba(255,255,255,.32);
+      animation:twinkle 6s ease-in-out infinite alternate;
+    }
+    .star.cool{background:#e2e8ff} .star.warm{background:#fff0d8}
+    @keyframes twinkle{from{opacity:.18;transform:scale(.94)}to{opacity:.92;transform:scale(1.07)}}
+    .nebula,.galaxy,.dust{position:absolute;pointer-events:none}
+    .nebula{border-radius:50%;filter:blur(60px);mix-blend-mode:screen}
+    .n1{width:760px;height:410px;left:-280px;top:4vh;transform:rotate(-28deg);opacity:.26;
+        background:radial-gradient(ellipse at 34% 50%,rgba(132,63,112,.53),rgba(73,38,81,.24) 29%,rgba(24,10,32,.05) 59%,transparent 75%),
+                   radial-gradient(ellipse at 73% 56%,rgba(67,91,104,.21),transparent 57%)}
+    .n2{width:880px;height:450px;right:-360px;top:38vh;transform:rotate(20deg);opacity:.22;
+        background:radial-gradient(ellipse at 46% 50%,rgba(43,101,104,.44),rgba(26,60,65,.19) 32%,rgba(6,16,21,.04) 58%,transparent 75%),
+                   radial-gradient(ellipse at 20% 43%,rgba(95,52,99,.23),transparent 55%)}
+    .n3{width:650px;height:350px;left:12vw;bottom:-120px;transform:rotate(-10deg);opacity:.18;
+        background:radial-gradient(ellipse at 50% 50%,rgba(103,49,86,.42),rgba(61,29,59,.18) 34%,rgba(12,6,16,.04) 61%,transparent 76%)}
+    .n4{width:500px;height:270px;left:47vw;top:17vh;transform:rotate(9deg);opacity:.12;
+        background:radial-gradient(ellipse at center,rgba(81,69,103,.40),rgba(42,36,55,.15) 38%,transparent 74%)}
+    .n5{width:520px;height:280px;right:8vw;bottom:19vh;transform:rotate(-18deg);opacity:.10;
+        background:radial-gradient(ellipse at center,rgba(71,91,92,.32),rgba(29,47,49,.12) 38%,transparent 75%)}
+    .galaxy{border-radius:50%;mix-blend-mode:screen}
+    .galaxy:before{
+      content:"";position:absolute;inset:0;border-radius:50%;
+      background:
+        radial-gradient(ellipse at center,rgba(255,255,255,.98) 0 1.2%,rgba(236,225,241,.56) 2.6%,rgba(162,145,174,.25) 6.5%,rgba(84,70,91,.10) 14%,transparent 34%),
+        repeating-conic-gradient(from 12deg at 50% 50%,rgba(210,190,219,.13) 0 3deg,rgba(108,92,120,.08) 4deg 9deg,transparent 11deg 26deg);
+      box-shadow:0 0 42px rgba(175,145,185,.08)
+    }
+    .galaxy:after{content:"";position:absolute;left:5%;right:5%;top:42%;height:14%;border-radius:50%;background:rgba(0,0,0,.55);filter:blur(3px);transform:rotate(-6deg)}
+    .g1{width:370px;height:120px;right:-60px;top:10vh;transform:rotate(-24deg);opacity:.52}
+    .g2{width:230px;height:78px;left:-38px;top:61vh;transform:rotate(18deg);opacity:.35}
+    .g3{width:168px;height:56px;right:16vw;bottom:10vh;transform:rotate(-10deg);opacity:.27}
+    .g4{width:120px;height:42px;left:29vw;top:31vh;transform:rotate(31deg);opacity:.18}
+    .g5{width:185px;height:63px;left:64vw;top:74vh;transform:rotate(5deg);opacity:.21}
+    .dust{border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.88),rgba(0,0,0,.54) 42%,transparent 74%);filter:blur(22px);mix-blend-mode:multiply}
+    .d1{width:680px;height:120px;left:-90px;top:29vh;transform:rotate(-18deg)}
+    .d2{width:570px;height:98px;right:-100px;top:54vh;transform:rotate(14deg)}
+    .wrap{width:min(1100px,92vw);margin:auto}
+    .topline{height:1px;width:min(1100px,92vw);margin:64px auto 0;background:linear-gradient(90deg,transparent,#6f6575,transparent)}
+    header{padding:58px 0 44px;text-align:center}
+    .logo{width:min(420px,80vw);margin:0 auto 28px;filter:drop-shadow(0 18px 34px rgba(0,0,0,.85))}
+    .eyebrow{text-transform:uppercase;letter-spacing:.30em;font-size:clamp(12px,1.5vw,16px);color:#aaa0ad}
+    h1{margin:40px 0 16px;font-size:clamp(40px,7vw,72px);font-weight:500;letter-spacing:.035em;line-height:.98;text-transform:uppercase;
+        background:linear-gradient(180deg,#fff,#cfc8d2 55%,#88808b);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .intro{max-width:760px;margin:0 auto;color:var(--muted);font-size:clamp(18px,2.6vw,27px);line-height:1.55}
+    .portal-grid{display:grid;gap:22px;grid-template-columns:1fr;margin:54px auto 24px}
+    .portal{position:relative;display:block;text-decoration:none;text-align:center;padding:54px 28px;border:1px solid #403945;
+        background:linear-gradient(135deg,rgba(117,76,118,.035),rgba(52,72,75,.025) 50%,rgba(5,5,6,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.025),var(--shadow);backdrop-filter:blur(8px)}
+    .portal h2{margin:18px 0 14px;font-size:clamp(31px,4.8vw,52px);line-height:1.02;font-weight:500;text-transform:uppercase}
+    .portal p{max-width:760px;margin:0 auto;font-size:clamp(17px,2vw,23px);line-height:1.45;color:var(--muted)}
+    .portal .small{letter-spacing:.28em;text-transform:uppercase;color:#978b9b;font-size:13px}
+    .future{opacity:.4;pointer-events:none;padding:32px 24px;background:rgba(5,5,6,.82)}
+    section{padding:72px 0}
+    .section-title{text-align:center;margin-bottom:38px}
+    .section-title .kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#948697}
+    .section-title h2{font-size:clamp(36px,6vw,62px);text-transform:uppercase;font-weight:500;margin:12px 0 10px}
+    .section-title p{margin:0 auto;max-width:700px;color:var(--muted);font-size:19px;line-height:1.55}
+    .packages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    details.package{border:1px solid #403943;background:linear-gradient(180deg,rgba(7,7,8,.97),rgba(2,2,3,.995));box-shadow:0 18px 46px rgba(0,0,0,.52)}
+    details.package[open]{border-color:#756b7a}
+    summary{list-style:none;cursor:pointer;padding:26px}
+    summary::-webkit-details-marker{display:none}
+    .pkg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .pkg-name{font-size:25px;text-transform:uppercase;letter-spacing:.06em}
+    .price{font-size:30px;color:#f7f3f8;white-space:nowrap}
+    .pkg-short{margin:16px 0 0;color:#beb4c1;line-height:1.55;font-family:Arial,Helvetica,sans-serif;font-size:15px}
+    .pkg-meta{margin-top:16px;color:#817685;font-family:Arial,Helvetica,sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+    .pkg-body{padding:0 26px 26px;border-top:1px solid #322c35;font-family:Arial,Helvetica,sans-serif}
+    .pkg-body p{color:#c9c0cb;line-height:1.58;margin:20px 0;font-size:15px}
+    .order-box{margin-top:20px;padding:16px;border:1px solid #443c47;background:rgba(2,2,3,.88)}
+    .qty-label{display:block;margin-bottom:12px;color:#b4a9b7;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+    .qty-radio{position:absolute;opacity:0;pointer-events:none}
+    .qty-pills{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+    .qty-pills label{display:flex;align-items:center;justify-content:center;min-height:40px;border:1px solid #4a424d;background:#080709;color:#b7aeb9;cursor:pointer;font:700 13px/1 Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
+    .qty-prices{margin-top:14px;padding-top:14px;border-top:1px solid #342e37}
+    .qty-panel{display:none}
+    .price-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;font:13px/1.45 Arial,Helvetica,sans-serif}
+    .price-breakdown span{color:#807683}
+    .price-breakdown strong{color:#f2edf4;text-align:right}
+    .discount-line{margin:11px 0 13px;color:#9a8f9d;font:12px/1.5 Arial,Helvetica,sans-serif}
+    .book{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border:1px solid #776d7b;background:linear-gradient(180deg,#1d1920,#0c0a0e);color:#f6f2f7;text-decoration:none;text-transform:uppercase;letter-spacing:.11em;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:12px}
+    .preview-disabled{opacity:.55;cursor:default}
+    .checkout-note{display:block;margin-top:9px;color:#746a77;font:11px/1.5 Arial,Helvetica,sans-serif}
+    #basic-q1:checked ~ .qty-pills label[for="basic-q1"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q1:checked ~ .qty-prices .panel-basic-q1{display:block}
+    #basic-q2:checked ~ .qty-pills label[for="basic-q2"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q2:checked ~ .qty-prices .panel-basic-q2{display:block}
+    #basic-q3:checked ~ .qty-pills label[for="basic-q3"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q3:checked ~ .qty-prices .panel-basic-q3{display:block}
+    #basic-q4:checked ~ .qty-pills label[for="basic-q4"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q4:checked ~ .qty-prices .panel-basic-q4{display:block}
+    #basic-q5:checked ~ .qty-pills label[for="basic-q5"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q5:checked ~ .qty-prices .panel-basic-q5{display:block}
+    #basic-q6:checked ~ .qty-pills label[for="basic-q6"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q6:checked ~ .qty-prices .panel-basic-q6{display:block}
+    #basic-q7:checked ~ .qty-pills label[for="basic-q7"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q7:checked ~ .qty-prices .panel-basic-q7{display:block}
+    #basic-q8:checked ~ .qty-pills label[for="basic-q8"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q8:checked ~ .qty-prices .panel-basic-q8{display:block}
+    #basic-q9:checked ~ .qty-pills label[for="basic-q9"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q9:checked ~ .qty-prices .panel-basic-q9{display:block}
+    #basic-q10:checked ~ .qty-pills label[for="basic-q10"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #basic-q10:checked ~ .qty-prices .panel-basic-q10{display:block}
+    #standard-q1:checked ~ .qty-pills label[for="standard-q1"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q1:checked ~ .qty-prices .panel-standard-q1{display:block}
+    #standard-q2:checked ~ .qty-pills label[for="standard-q2"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q2:checked ~ .qty-prices .panel-standard-q2{display:block}
+    #standard-q3:checked ~ .qty-pills label[for="standard-q3"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q3:checked ~ .qty-prices .panel-standard-q3{display:block}
+    #standard-q4:checked ~ .qty-pills label[for="standard-q4"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q4:checked ~ .qty-prices .panel-standard-q4{display:block}
+    #standard-q5:checked ~ .qty-pills label[for="standard-q5"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q5:checked ~ .qty-prices .panel-standard-q5{display:block}
+    #standard-q6:checked ~ .qty-pills label[for="standard-q6"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q6:checked ~ .qty-prices .panel-standard-q6{display:block}
+    #standard-q7:checked ~ .qty-pills label[for="standard-q7"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q7:checked ~ .qty-prices .panel-standard-q7{display:block}
+    #standard-q8:checked ~ .qty-pills label[for="standard-q8"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q8:checked ~ .qty-prices .panel-standard-q8{display:block}
+    #standard-q9:checked ~ .qty-pills label[for="standard-q9"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q9:checked ~ .qty-prices .panel-standard-q9{display:block}
+    #standard-q10:checked ~ .qty-pills label[for="standard-q10"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #standard-q10:checked ~ .qty-prices .panel-standard-q10{display:block}
+    #high-q1:checked ~ .qty-pills label[for="high-q1"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q1:checked ~ .qty-prices .panel-high-q1{display:block}
+    #high-q2:checked ~ .qty-pills label[for="high-q2"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q2:checked ~ .qty-prices .panel-high-q2{display:block}
+    #high-q3:checked ~ .qty-pills label[for="high-q3"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q3:checked ~ .qty-prices .panel-high-q3{display:block}
+    #high-q4:checked ~ .qty-pills label[for="high-q4"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q4:checked ~ .qty-prices .panel-high-q4{display:block}
+    #high-q5:checked ~ .qty-pills label[for="high-q5"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q5:checked ~ .qty-prices .panel-high-q5{display:block}
+    #high-q6:checked ~ .qty-pills label[for="high-q6"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q6:checked ~ .qty-prices .panel-high-q6{display:block}
+    #high-q7:checked ~ .qty-pills label[for="high-q7"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q7:checked ~ .qty-prices .panel-high-q7{display:block}
+    #high-q8:checked ~ .qty-pills label[for="high-q8"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q8:checked ~ .qty-prices .panel-high-q8{display:block}
+    #high-q9:checked ~ .qty-pills label[for="high-q9"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q9:checked ~ .qty-prices .panel-high-q9{display:block}
+    #high-q10:checked ~ .qty-pills label[for="high-q10"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #high-q10:checked ~ .qty-prices .panel-high-q10{display:block}
+    #premium-q1:checked ~ .qty-pills label[for="premium-q1"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q1:checked ~ .qty-prices .panel-premium-q1{display:block}
+    #premium-q2:checked ~ .qty-pills label[for="premium-q2"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q2:checked ~ .qty-prices .panel-premium-q2{display:block}
+    #premium-q3:checked ~ .qty-pills label[for="premium-q3"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q3:checked ~ .qty-prices .panel-premium-q3{display:block}
+    #premium-q4:checked ~ .qty-pills label[for="premium-q4"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q4:checked ~ .qty-prices .panel-premium-q4{display:block}
+    #premium-q5:checked ~ .qty-pills label[for="premium-q5"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q5:checked ~ .qty-prices .panel-premium-q5{display:block}
+    #premium-q6:checked ~ .qty-pills label[for="premium-q6"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q6:checked ~ .qty-prices .panel-premium-q6{display:block}
+    #premium-q7:checked ~ .qty-pills label[for="premium-q7"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q7:checked ~ .qty-prices .panel-premium-q7{display:block}
+    #premium-q8:checked ~ .qty-pills label[for="premium-q8"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q8:checked ~ .qty-prices .panel-premium-q8{display:block}
+    #premium-q9:checked ~ .qty-pills label[for="premium-q9"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q9:checked ~ .qty-prices .panel-premium-q9{display:block}
+    #premium-q10:checked ~ .qty-pills label[for="premium-q10"]{background:linear-gradient(180deg,#1a171d,#0b090c);border-color:#9d929f;color:#fff;box-shadow:0 0 18px rgba(170,140,180,.12)}
+    #premium-q10:checked ~ .qty-prices .panel-premium-q10{display:block}
+    .hear{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .audio-card{border:1px solid #3d363f;background:rgba(5,5,6,.88);padding:28px;min-height:210px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+    .audio-card .tag{font:700 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#857a89}
+    .audio-card h3{font-size:28px;font-weight:500;margin:16px 0 10px;text-transform:uppercase}
+    .audio-card p{color:var(--muted);font:15px/1.55 Arial,Helvetica,sans-serif;margin:0}
+    .custom{border:1px solid #453d48;background:linear-gradient(135deg,rgba(95,51,93,.045),rgba(5,5,6,.94));padding:44px;text-align:center}
+    .custom p{max-width:720px;margin:14px auto 26px;color:var(--muted);font:17px/1.6 Arial,Helvetica,sans-serif}
+    .cta{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border:1px solid #817587;background:#18141b;color:#fff;text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font:700 12px/1 Arial,Helvetica,sans-serif}
+    .stems{border:1px solid #3e3741;background:rgba(4,4,5,.91);padding:38px;text-align:center}
+    .stems p{max-width:730px;margin:14px auto 24px;color:var(--muted);font:16px/1.6 Arial,Helvetica,sans-serif}
+    .stem-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .smallnote{display:block;margin-top:16px;color:#706873;font:12px/1.5 Arial,Helvetica,sans-serif}
+    footer{padding:34px 0 64px;text-align:center;color:#6c646f;font:12px/1.6 Arial,Helvetica,sans-serif;letter-spacing:.06em}
+    @media(max-width:760px){
+      .packages,.hear{grid-template-columns:1fr}
+      header{padding-top:46px}
+      .topline{margin-top:42px}
+      .portal{padding:42px 21px}
+      .custom,.stems{padding:30px 20px}
+      .g1{width:230px;height:77px;right:-84px}
+      .g2{width:155px;height:52px;left:-60px}
+      .g3{width:118px;height:40px;right:-8px}
+      .n1{width:500px;height:290px;left:-330px}
+      .n2{width:560px;height:300px;right:-360px}
+      .n3{width:460px;height:250px;left:-50px}
+      .n4{width:360px;height:210px;left:30vw}
+    }
+  
+    .checkout-note a{color:#cbbfd0;text-decoration:underline;text-underline-offset:3px}
+    .booking-confirm{border:1px solid #443c47;background:linear-gradient(145deg,rgba(92,55,92,.045),rgba(4,4,5,.95));padding:42px;box-shadow:0 28px 90px rgba(0,0,0,.55)}
+    .flow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .flow-step{border:1px solid #39323d;background:rgba(4,4,5,.88);padding:23px;min-height:190px}
+    .flow-step b{display:block;color:#887c8d;font:700 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.2em}
+    .flow-step h3{margin:17px 0 10px;font-size:22px;font-weight:500;text-transform:uppercase}
+    .flow-step p{margin:0;color:#aaa0ad;font:14px/1.55 Arial,Helvetica,sans-serif}
+    .balance-protect{display:grid;grid-template-columns:220px 1fr;gap:18px;margin-top:16px;padding:22px;border:1px solid #625767;background:#09070b}
+    .balance-protect strong{text-transform:uppercase;letter-spacing:.1em;font:700 12px/1.4 Arial,Helvetica,sans-serif;color:#efe8f1}
+    .balance-protect span{font:14px/1.55 Arial,Helvetica,sans-serif;color:#aaa0ad}
+    footer a{color:#978b9b}
+    @media(max-width:760px){
+      .flow-grid{grid-template-columns:1fr}
+      .booking-confirm{padding:28px 18px}
+      .balance-protect{grid-template-columns:1fr}
+    }
+</style>
+</head>
+<body>
+<div aria-hidden="true" class="cosmos">
+<span class="star" style="left:72.50%;top:9.45%;width:1.40px;height:1.40px;opacity:0.27;animation-delay:-3.55s;animation-duration:8.40s"></span>
+<span class="star cool" style="left:46.10%;top:63.15%;width:1.40px;height:1.40px;opacity:0.43;animation-delay:-3.89s;animation-duration:4.71s"></span>
+<span class="star" style="left:4.94%;top:97.00%;width:0.70px;height:0.70px;opacity:0.62;animation-delay:-6.60s;animation-duration:6.26s"></span>
+<span class="star cool" style="left:31.85%;top:84.62%;width:1.40px;height:1.40px;opacity:0.89;animation-delay:-2.81s;animation-duration:7.49s"></span>
+<span class="star warm" style="left:17.97%;top:30.93%;width:0.70px;height:0.70px;opacity:0.72;animation-delay:-2.37s;animation-duration:5.10s"></span>
+<span class="star" style="left:15.02%;top:7.92%;width:0.70px;height:0.70px;opacity:0.35;animation-delay:-5.32s;animation-duration:7.71s"></span>
+<span class="star warm" style="left:16.78%;top:60.77%;width:1.40px;height:1.40px;opacity:0.39;animation-delay:-3.91s;animation-duration:8.03s"></span>
+<span class="star warm" style="left:50.25%;top:58.68%;width:1.40px;height:1.40px;opacity:0.72;animation-delay:-1.84s;animation-duration:6.35s"></span>
+<span class="star" style="left:37.92%;top:39.19%;width:0.70px;height:0.70px;opacity:0.77;animation-delay:-4.71s;animation-duration:7.77s"></span>
+<span class="star" style="left:35.25%;top:89.35%;width:1.10px;height:1.10px;opacity:0.70;animation-delay:-0.69s;animation-duration:7.46s"></span>
+<span class="star warm" style="left:26.31%;top:94.92%;width:0.70px;height:0.70px;opacity:0.77;animation-delay:-6.38s;animation-duration:6.07s"></span>
+<span class="star warm" style="left:28.88%;top:46.39%;width:1.40px;height:1.40px;opacity:0.44;animation-delay:-3.07s;animation-duration:6.97s"></span>
+<span class="star cool" style="left:70.08%;top:34.10%;width:0.70px;height:0.70px;opacity:0.20;animation-delay:-5.41s;animation-duration:7.72s"></span>
+<span class="star" style="left:49.66%;top:98.51%;width:0.90px;height:0.90px;opacity:0.73;animation-delay:-1.40s;animation-duration:7.43s"></span>
+<span class="star" style="left:84.39%;top:56.57%;width:0.70px;height:0.70px;opacity:0.90;animation-delay:-5.38s;animation-duration:8.04s"></span>
+<span class="star cool" style="left:30.61%;top:9.31%;width:1.10px;height:1.10px;opacity:0.36;animation-delay:-6.32s;animation-duration:4.67s"></span>
+<span class="star cool" style="left:98.40%;top:39.12%;width:1.40px;height:1.40px;opacity:0.88;animation-delay:-1.21s;animation-duration:8.78s"></span>
+<span class="star" style="left:34.20%;top:48.75%;width:0.90px;height:0.90px;opacity:0.68;animation-delay:-5.35s;animation-duration:6.93s"></span>
+<span class="star" style="left:83.51%;top:43.75%;width:0.70px;height:0.70px;opacity:0.26;animation-delay:-6.71s;animation-duration:6.27s"></span>
+<span class="star warm" style="left:94.94%;top:33.35%;width:0.70px;height:0.70px;opacity:0.52;animation-delay:-6.90s;animation-duration:8.20s"></span>
+<span class="star cool" style="left:69.36%;top:1.60%;width:0.70px;height:0.70px;opacity:0.22;animation-delay:-4.55s;animation-duration:7.45s"></span>
+<span class="star" style="left:48.10%;top:6.63%;width:1.10px;height:1.10px;opacity:0.88;animation-delay:-4.76s;animation-duration:7.49s"></span>
+<span class="star cool" style="left:91.46%;top:14.73%;width:0.70px;height:0.70px;opacity:0.56;animation-delay:-4.26s;animation-duration:5.37s"></span>
+<span class="star cool" style="left:89.17%;top:1.42%;width:0.90px;height:0.90px;opacity:0.73;animation-delay:-0.22s;animation-duration:5.94s"></span>
+<span class="star cool" style="left:76.36%;top:76.41%;width:1.10px;height:1.10px;opacity:0.39;animation-delay:-4.08s;animation-duration:7.48s"></span>
+<span class="star warm" style="left:8.54%;top:97.27%;width:1.10px;height:1.10px;opacity:0.49;animation-delay:-0.50s;animation-duration:8.63s"></span>
+<span class="star" style="left:62.85%;top:34.93%;width:0.90px;height:0.90px;opacity:0.72;animation-delay:-2.37s;animation-duration:8.54s"></span>
+<span class="star warm" style="left:40.15%;top:9.93%;width:0.90px;height:0.90px;opacity:0.75;animation-delay:-1.40s;animation-duration:7.20s"></span>
+<span class="star" style="left:20.40%;top:46.34%;width:0.90px;height:0.90px;opacity:0.39;animation-delay:-3.14s;animation-duration:5.97s"></span>
+<span class="star" style="left:39.82%;top:21.94%;width:1.40px;height:1.40px;opacity:0.68;animation-delay:-3.15s;animation-duration:6.53s"></span>
+<span class="star" style="left:96.28%;top:16.22%;width:0.90px;height:0.90px;opacity:0.28;animation-delay:-6.52s;animation-duration:8.75s"></span>
+<span class="star" style="left:21.95%;top:91.84%;width:0.70px;height:0.70px;opacity:0.28;animation-delay:-4.03s;animation-duration:6.19s"></span>
+<span class="star" style="left:48.47%;top:69.05%;width:0.90px;height:0.90px;opacity:0.79;animation-delay:-5.28s;animation-duration:5.58s"></span>
+<span class="star warm" style="left:14.99%;top:4.42%;width:0.90px;height:0.90px;opacity:0.23;animation-delay:-1.49s;animation-duration:7.49s"></span>
+<span class="star warm" style="left:87.77%;top:95.30%;width:1.10px;height:1.10px;opacity:0.46;animation-delay:-6.06s;animation-duration:6.98s"></span>
+<span class="star" style="left:36.12%;top:78.79%;width:2.20px;height:2.20px;opacity:0.40;animation-delay:-0.43s;animation-duration:5.40s"></span>
+<span class="star warm" style="left:36.16%;top:35.21%;width:0.90px;height:0.90px;opacity:0.42;animation-delay:-0.46s;animation-duration:6.57s"></span>
+<span class="star" style="left:23.17%;top:57.11%;width:0.90px;height:0.90px;opacity:0.61;animation-delay:-2.65s;animation-duration:5.95s"></span>
+<span class="star" style="left:4.62%;top:43.68%;width:0.70px;height:0.70px;opacity:0.23;animation-delay:-1.37s;animation-duration:7.08s"></span>
+<span class="star cool" style="left:79.58%;top:11.52%;width:0.70px;height:0.70px;opacity:0.69;animation-delay:-4.64s;animation-duration:5.87s"></span>
+<span class="star cool" style="left:59.40%;top:79.75%;width:0.70px;height:0.70px;opacity:0.63;animation-delay:-3.75s;animation-duration:8.82s"></span>
+<span class="star" style="left:35.95%;top:88.64%;width:1.10px;height:1.10px;opacity:0.33;animation-delay:-3.75s;animation-duration:6.83s"></span>
+<span class="star" style="left:3.16%;top:26.13%;width:0.90px;height:0.90px;opacity:0.59;animation-delay:-1.99s;animation-duration:7.18s"></span>
+<span class="star cool" style="left:30.51%;top:61.19%;width:0.70px;height:0.70px;opacity:0.56;animation-delay:-5.57s;animation-duration:4.85s"></span>
+<span class="star" style="left:19.92%;top:68.06%;width:1.40px;height:1.40px;opacity:0.27;animation-delay:-0.04s;animation-duration:7.53s"></span>
+<span class="star cool" style="left:47.26%;top:6.21%;width:1.40px;height:1.40px;opacity:0.80;animation-delay:-2.66s;animation-duration:5.40s"></span>
+<span class="star warm" style="left:91.09%;top:25.28%;width:1.40px;height:1.40px;opacity:0.69;animation-delay:-3.52s;animation-duration:7.30s"></span>
+<span class="star cool" style="left:16.81%;top:84.10%;width:1.10px;height:1.10px;opacity:0.29;animation-delay:-3.93s;animation-duration:7.56s"></span>
+<span class="star" style="left:69.06%;top:10.08%;width:1.10px;height:1.10px;opacity:0.36;animation-delay:-3.47s;animation-duration:5.54s"></span>
+<span class="star cool" style="left:55.93%;top:12.01%;width:1.10px;height:1.10px;opacity:0.69;animation-delay:-1.72s;animation-duration:8.05s"></span>
+<span class="star" style="left:72.06%;top:13.35%;width:1.80px;height:1.80px;opacity:0.83;animation-delay:-2.92s;animation-duration:8.70s"></span>
+<span class="star" style="left:14.36%;top:0.81%;width:0.90px;height:0.90px;opacity:0.24;animation-delay:-2.81s;animation-duration:5.11s"></span>
+<span class="star" style="left:55.69%;top:6.42%;width:0.70px;height:0.70px;opacity:0.50;animation-delay:-4.44s;animation-duration:5.00s"></span>
+<span class="star" style="left:64.18%;top:89.70%;width:1.40px;height:1.40px;opacity:0.43;animation-delay:-0.75s;animation-duration:7.68s"></span>
+<span class="star" style="left:36.45%;top:20.30%;width:0.90px;height:0.90px;opacity:0.41;animation-delay:-2.68s;animation-duration:8.87s"></span>
+<span class="star" style="left:63.07%;top:50.05%;width:0.90px;height:0.90px;opacity:0.41;animation-delay:-5.11s;animation-duration:7.10s"></span>
+<span class="star" style="left:19.77%;top:12.62%;width:0.70px;height:0.70px;opacity:0.68;animation-delay:-1.05s;animation-duration:8.43s"></span>
+<span class="star" style="left:32.35%;top:53.61%;width:0.90px;height:0.90px;opacity:0.27;animation-delay:-3.88s;animation-duration:7.70s"></span>
+<span class="star" style="left:7.44%;top:82.71%;width:0.90px;height:0.90px;opacity:0.61;animation-delay:-2.06s;animation-duration:5.98s"></span>
+<span class="star warm" style="left:34.96%;top:76.36%;width:0.90px;height:0.90px;opacity:0.48;animation-delay:-2.36s;animation-duration:5.34s"></span>
+<span class="star" style="left:41.23%;top:65.61%;width:0.70px;height:0.70px;opacity:0.84;animation-delay:-1.34s;animation-duration:8.84s"></span>
+<span class="star" style="left:42.76%;top:84.02%;width:1.40px;height:1.40px;opacity:0.55;animation-delay:-3.44s;animation-duration:6.33s"></span>
+<span class="star warm" style="left:34.33%;top:54.01%;width:0.90px;height:0.90px;opacity:0.59;animation-delay:-2.25s;animation-duration:7.62s"></span>
+<span class="star cool" style="left:10.15%;top:31.55%;width:0.90px;height:0.90px;opacity:0.20;animation-delay:-4.79s;animation-duration:8.25s"></span>
+<span class="star" style="left:77.17%;top:99.29%;width:0.70px;height:0.70px;opacity:0.34;animation-delay:-5.00s;animation-duration:7.57s"></span>
+<span class="star" style="left:3.21%;top:31.84%;width:0.90px;height:0.90px;opacity:0.62;animation-delay:-0.67s;animation-duration:8.74s"></span>
+<span class="star cool" style="left:59.50%;top:81.25%;width:1.80px;height:1.80px;opacity:0.60;animation-delay:-2.62s;animation-duration:7.65s"></span>
+<span class="star" style="left:39.45%;top:63.05%;width:2.20px;height:2.20px;opacity:0.39;animation-delay:-3.76s;animation-duration:7.03s"></span>
+<span class="star" style="left:2.90%;top:78.15%;width:0.70px;height:0.70px;opacity:0.56;animation-delay:-3.13s;animation-duration:5.38s"></span>
+<span class="star" style="left:57.99%;top:32.43%;width:1.40px;height:1.40px;opacity:0.42;animation-delay:-6.86s;animation-duration:6.71s"></span>
+<span class="star" style="left:26.84%;top:48.40%;width:0.90px;height:0.90px;opacity:0.90;animation-delay:-0.75s;animation-duration:6.01s"></span>
+<span class="star" style="left:67.53%;top:64.74%;width:1.40px;height:1.40px;opacity:0.24;animation-delay:-3.74s;animation-duration:8.44s"></span>
+<span class="star" style="left:1.47%;top:31.47%;width:0.70px;height:0.70px;opacity:0.67;animation-delay:-2.36s;animation-duration:7.36s"></span>
+<span class="star" style="left:29.09%;top:37.51%;width:1.40px;height:1.40px;opacity:0.50;animation-delay:-2.85s;animation-duration:6.10s"></span>
+<span class="star cool" style="left:35.27%;top:36.47%;width:1.40px;height:1.40px;opacity:0.24;animation-delay:-0.18s;animation-duration:4.97s"></span>
+<span class="star" style="left:40.10%;top:75.08%;width:0.70px;height:0.70px;opacity:0.81;animation-delay:-0.49s;animation-duration:8.85s"></span>
+<span class="star" style="left:33.74%;top:10.08%;width:0.70px;height:0.70px;opacity:0.27;animation-delay:-6.60s;animation-duration:8.93s"></span>
+<span class="star" style="left:53.08%;top:4.88%;width:0.70px;height:0.70px;opacity:0.55;animation-delay:-5.42s;animation-duration:5.92s"></span>
+<span class="star" style="left:28.82%;top:26.15%;width:1.80px;height:1.80px;opacity:0.26;animation-delay:-2.47s;animation-duration:6.11s"></span>
+<span class="star" style="left:97.97%;top:57.75%;width:0.90px;height:0.90px;opacity:0.40;animation-delay:-5.17s;animation-duration:8.45s"></span>
+<span class="star cool" style="left:71.73%;top:35.02%;width:0.90px;height:0.90px;opacity:0.38;animation-delay:-1.37s;animation-duration:7.36s"></span>
+<span class="star" style="left:4.44%;top:76.24%;width:2.20px;height:2.20px;opacity:0.88;animation-delay:-3.52s;animation-duration:8.42s"></span>
+<span class="star warm" style="left:9.48%;top:32.62%;width:0.70px;height:0.70px;opacity:0.25;animation-delay:-1.08s;animation-duration:5.86s"></span>
+<span class="star" style="left:33.63%;top:23.99%;width:1.80px;height:1.80px;opacity:0.76;animation-delay:-0.80s;animation-duration:5.28s"></span>
+<span class="star" style="left:19.29%;top:35.69%;width:0.70px;height:0.70px;opacity:0.78;animation-delay:-5.08s;animation-duration:8.33s"></span>
+<span class="star warm" style="left:20.83%;top:1.12%;width:1.10px;height:1.10px;opacity:0.32;animation-delay:-5.79s;animation-duration:5.62s"></span>
+<span class="star" style="left:18.63%;top:91.19%;width:0.70px;height:0.70px;opacity:0.87;animation-delay:-5.89s;animation-duration:7.80s"></span>
+<span class="star" style="left:6.17%;top:16.03%;width:0.70px;height:0.70px;opacity:0.57;animation-delay:-0.12s;animation-duration:8.13s"></span>
+<span class="star" style="left:60.56%;top:41.82%;width:0.90px;height:0.90px;opacity:0.23;animation-delay:-1.94s;animation-duration:6.51s"></span>
+<span class="star warm" style="left:78.59%;top:21.75%;width:0.70px;height:0.70px;opacity:0.85;animation-delay:-1.28s;animation-duration:5.66s"></span>
+<span class="star" style="left:12.79%;top:17.47%;width:2.20px;height:2.20px;opacity:0.51;animation-delay:-0.57s;animation-duration:6.56s"></span>
+<span class="star warm" style="left:45.48%;top:25.63%;width:0.90px;height:0.90px;opacity:0.19;animation-delay:-6.79s;animation-duration:8.48s"></span>
+<span class="star cool" style="left:48.95%;top:25.86%;width:1.10px;height:1.10px;opacity:0.85;animation-delay:-3.85s;animation-duration:8.33s"></span>
+<span class="star cool" style="left:15.47%;top:27.38%;width:0.90px;height:0.90px;opacity:0.49;animation-delay:-2.00s;animation-duration:5.26s"></span>
+<span class="star" style="left:61.01%;top:90.59%;width:0.90px;height:0.90px;opacity:0.21;animation-delay:-1.16s;animation-duration:5.89s"></span>
+<span class="star warm" style="left:39.41%;top:17.50%;width:1.10px;height:1.10px;opacity:0.31;animation-delay:-3.00s;animation-duration:8.61s"></span>
+<span class="star warm" style="left:3.81%;top:86.77%;width:1.40px;height:1.40px;opacity:0.45;animation-delay:-6.51s;animation-duration:4.98s"></span>
+<span class="star warm" style="left:28.78%;top:53.93%;width:0.70px;height:0.70px;opacity:0.49;animation-delay:-5.23s;animation-duration:8.06s"></span>
+<span class="star" style="left:40.75%;top:42.43%;width:0.90px;height:0.90px;opacity:0.48;animation-delay:-1.61s;animation-duration:8.66s"></span>
+<span class="star" style="left:41.48%;top:65.49%;width:0.70px;height:0.70px;opacity:0.62;animation-delay:-5.56s;animation-duration:8.95s"></span>
+<span class="star cool" style="left:35.78%;top:73.19%;width:0.70px;height:0.70px;opacity:0.89;animation-delay:-1.93s;animation-duration:8.34s"></span>
+<span class="star" style="left:8.11%;top:82.52%;width:0.70px;height:0.70px;opacity:0.85;animation-delay:-1.59s;animation-duration:7.72s"></span>
+<span class="star" style="left:45.20%;top:80.62%;width:0.90px;height:0.90px;opacity:0.36;animation-delay:-1.78s;animation-duration:5.02s"></span>
+<span class="star cool" style="left:50.29%;top:24.05%;width:0.90px;height:0.90px;opacity:0.76;animation-delay:-2.83s;animation-duration:7.01s"></span>
+<span class="star warm" style="left:12.97%;top:25.56%;width:1.10px;height:1.10px;opacity:0.19;animation-delay:-2.13s;animation-duration:8.72s"></span>
+<span class="star" style="left:99.31%;top:74.04%;width:0.90px;height:0.90px;opacity:0.60;animation-delay:-4.93s;animation-duration:6.88s"></span>
+<span class="star" style="left:75.85%;top:85.96%;width:1.80px;height:1.80px;opacity:0.39;animation-delay:-1.09s;animation-duration:5.03s"></span>
+<span class="star" style="left:33.57%;top:11.32%;width:1.80px;height:1.80px;opacity:0.67;animation-delay:-2.59s;animation-duration:8.04s"></span>
+<span class="star cool" style="left:75.11%;top:48.60%;width:1.10px;height:1.10px;opacity:0.79;animation-delay:-2.38s;animation-duration:4.71s"></span>
+<span class="star" style="left:74.99%;top:33.45%;width:0.90px;height:0.90px;opacity:0.84;animation-delay:-0.69s;animation-duration:8.79s"></span>
+<span class="star cool" style="left:76.09%;top:12.54%;width:0.90px;height:0.90px;opacity:0.56;animation-delay:-3.11s;animation-duration:6.78s"></span>
+<span class="star warm" style="left:12.81%;top:35.05%;width:0.70px;height:0.70px;opacity:0.61;animation-delay:-0.23s;animation-duration:8.02s"></span>
+<span class="star cool" style="left:27.77%;top:46.12%;width:1.80px;height:1.80px;opacity:0.20;animation-delay:-0.07s;animation-duration:7.23s"></span>
+<span class="star" style="left:80.10%;top:71.74%;width:1.10px;height:1.10px;opacity:0.27;animation-delay:-4.68s;animation-duration:5.71s"></span>
+<span class="star cool" style="left:81.07%;top:1.20%;width:1.10px;height:1.10px;opacity:0.85;animation-delay:-2.70s;animation-duration:4.96s"></span>
+<span class="star cool" style="left:39.04%;top:95.74%;width:0.90px;height:0.90px;opacity:0.21;animation-delay:-0.04s;animation-duration:6.81s"></span>
+<span class="star warm" style="left:37.32%;top:95.98%;width:0.90px;height:0.90px;opacity:0.76;animation-delay:-3.82s;animation-duration:6.98s"></span>
+<span class="star cool" style="left:35.49%;top:80.59%;width:1.40px;height:1.40px;opacity:0.59;animation-delay:-0.85s;animation-duration:5.27s"></span>
+<span class="star warm" style="left:22.82%;top:83.20%;width:1.80px;height:1.80px;opacity:0.87;animation-delay:-3.78s;animation-duration:4.77s"></span>
+<span class="star" style="left:81.57%;top:98.02%;width:1.10px;height:1.10px;opacity:0.42;animation-delay:-1.05s;animation-duration:8.66s"></span>
+<span class="star" style="left:18.76%;top:94.52%;width:1.10px;height:1.10px;opacity:0.47;animation-delay:-1.32s;animation-duration:6.94s"></span>
+<span class="star cool" style="left:9.51%;top:92.53%;width:1.40px;height:1.40px;opacity:0.71;animation-delay:-5.17s;animation-duration:8.78s"></span>
+<span class="star cool" style="left:38.47%;top:53.13%;width:2.20px;height:2.20px;opacity:0.43;animation-delay:-5.69s;animation-duration:8.18s"></span>
+<span class="star" style="left:98.71%;top:34.94%;width:1.10px;height:1.10px;opacity:0.56;animation-delay:-4.21s;animation-duration:6.02s"></span>
+<span class="star" style="left:58.15%;top:96.19%;width:0.90px;height:0.90px;opacity:0.42;animation-delay:-3.86s;animation-duration:4.50s"></span>
+<span class="star" style="left:54.66%;top:43.74%;width:1.10px;height:1.10px;opacity:0.43;animation-delay:-5.09s;animation-duration:8.80s"></span>
+<span class="star cool" style="left:22.54%;top:38.78%;width:1.80px;height:1.80px;opacity:0.70;animation-delay:-3.95s;animation-duration:7.73s"></span>
+<span class="star" style="left:1.94%;top:5.60%;width:1.10px;height:1.10px;opacity:0.34;animation-delay:-1.02s;animation-duration:5.76s"></span>
+<span class="star" style="left:28.42%;top:93.62%;width:0.90px;height:0.90px;opacity:0.70;animation-delay:-1.03s;animation-duration:4.69s"></span>
+<span class="star cool" style="left:5.92%;top:81.12%;width:1.10px;height:1.10px;opacity:0.48;animation-delay:-4.78s;animation-duration:6.45s"></span>
+<span class="star" style="left:82.21%;top:78.85%;width:0.70px;height:0.70px;opacity:0.78;animation-delay:-7.00s;animation-duration:5.28s"></span>
+<span class="star" style="left:71.30%;top:63.70%;width:0.70px;height:0.70px;opacity:0.31;animation-delay:-5.94s;animation-duration:6.39s"></span>
+<span class="star warm" style="left:21.35%;top:18.45%;width:0.90px;height:0.90px;opacity:0.72;animation-delay:-5.30s;animation-duration:8.16s"></span>
+<span class="star" style="left:9.93%;top:16.09%;width:1.40px;height:1.40px;opacity:0.63;animation-delay:-1.83s;animation-duration:6.07s"></span>
+<span class="star" style="left:63.77%;top:93.07%;width:2.20px;height:2.20px;opacity:0.25;animation-delay:-2.09s;animation-duration:5.01s"></span>
+<span class="star cool" style="left:54.57%;top:55.77%;width:1.10px;height:1.10px;opacity:0.21;animation-delay:-5.56s;animation-duration:8.39s"></span>
+<span class="star cool" style="left:19.80%;top:93.19%;width:1.10px;height:1.10px;opacity:0.86;animation-delay:-0.05s;animation-duration:6.36s"></span>
+<span class="star warm" style="left:74.29%;top:11.99%;width:0.90px;height:0.90px;opacity:0.23;animation-delay:-0.08s;animation-duration:8.64s"></span>
+<span class="star warm" style="left:37.68%;top:39.87%;width:1.80px;height:1.80px;opacity:0.34;animation-delay:-5.80s;animation-duration:4.77s"></span>
+<span class="star cool" style="left:8.95%;top:82.45%;width:0.70px;height:0.70px;opacity:0.23;animation-delay:-1.91s;animation-duration:8.11s"></span>
+<span class="star" style="left:12.99%;top:56.16%;width:1.80px;height:1.80px;opacity:0.80;animation-delay:-6.83s;animation-duration:5.72s"></span>
+<span class="star warm" style="left:15.62%;top:37.00%;width:1.80px;height:1.80px;opacity:0.30;animation-delay:-5.68s;animation-duration:8.42s"></span>
+<span class="star" style="left:2.69%;top:5.28%;width:0.90px;height:0.90px;opacity:0.72;animation-delay:-4.10s;animation-duration:6.99s"></span>
+<span class="star" style="left:65.00%;top:8.53%;width:1.10px;height:1.10px;opacity:0.35;animation-delay:-5.73s;animation-duration:8.46s"></span>
+<span class="star" style="left:76.72%;top:83.89%;width:1.10px;height:1.10px;opacity:0.35;animation-delay:-2.15s;animation-duration:7.03s"></span>
+<span class="star" style="left:54.71%;top:63.37%;width:2.20px;height:2.20px;opacity:0.23;animation-delay:-5.84s;animation-duration:8.11s"></span>
+<span class="star" style="left:69.33%;top:52.51%;width:0.90px;height:0.90px;opacity:0.80;animation-delay:-5.19s;animation-duration:5.97s"></span>
+<span class="star" style="left:7.51%;top:79.58%;width:0.70px;height:0.70px;opacity:0.19;animation-delay:-2.63s;animation-duration:7.64s"></span>
+<span class="star" style="left:71.43%;top:10.38%;width:0.90px;height:0.90px;opacity:0.89;animation-delay:-0.36s;animation-duration:7.25s"></span>
+<span class="star cool" style="left:98.56%;top:61.85%;width:0.70px;height:0.70px;opacity:0.56;animation-delay:-0.10s;animation-duration:8.43s"></span>
+<span class="star" style="left:78.65%;top:13.14%;width:1.10px;height:1.10px;opacity:0.19;animation-delay:-5.10s;animation-duration:8.47s"></span>
+<span class="star warm" style="left:31.59%;top:63.15%;width:0.70px;height:0.70px;opacity:0.50;animation-delay:-0.98s;animation-duration:8.10s"></span>
+<span class="star cool" style="left:67.97%;top:93.11%;width:0.90px;height:0.90px;opacity:0.57;animation-delay:-5.52s;animation-duration:5.60s"></span>
+<span class="star warm" style="left:78.95%;top:33.19%;width:1.40px;height:1.40px;opacity:0.83;animation-delay:-3.84s;animation-duration:8.51s"></span>
+<span class="star" style="left:67.66%;top:45.80%;width:1.40px;height:1.40px;opacity:0.18;animation-delay:-4.51s;animation-duration:8.84s"></span>
+<span class="star" style="left:23.75%;top:74.23%;width:0.70px;height:0.70px;opacity:0.29;animation-delay:-3.12s;animation-duration:4.75s"></span>
+<span class="star" style="left:11.31%;top:91.28%;width:1.80px;height:1.80px;opacity:0.62;animation-delay:-6.53s;animation-duration:8.17s"></span>
+<span class="star cool" style="left:27.10%;top:0.94%;width:0.70px;height:0.70px;opacity:0.77;animation-delay:-0.90s;animation-duration:8.59s"></span>
+<span class="star" style="left:0.63%;top:92.27%;width:1.40px;height:1.40px;opacity:0.59;animation-delay:-1.37s;animation-duration:5.21s"></span>
+<span class="star warm" style="left:59.54%;top:16.87%;width:1.80px;height:1.80px;opacity:0.79;animation-delay:-4.95s;animation-duration:5.92s"></span>
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+<div class="nebula n3"></div>
+<div class="nebula n4"></div>
+<div class="nebula n5"></div>
+<div class="dust d1"></div>
+<div class="dust d2"></div>
+<div class="galaxy g1"></div>
+<div class="galaxy g2"></div>
+<div class="galaxy g3"></div>
+<div class="galaxy g4"></div>
+<div class="galaxy g5"></div>
+</div>
+<div class="topline"></div>
+<header class="wrap">
+<svg aria-label="Mproductions logo" class="logo" role="img" viewbox="0 0 420 250">
+<defs>
+<lineargradient id="metal" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#f8f5f8"></stop>
+<stop offset=".35" stop-color="#89828d"></stop>
+<stop offset=".55" stop-color="#ded9e0"></stop>
+<stop offset="1" stop-color="#57515c"></stop>
+</lineargradient>
+<filter id="shadow"><fedropshadow dx="0" dy="10" flood-color="#000" flood-opacity=".85" stddeviation="9"></fedropshadow></filter>
+</defs>
+<g fill="url(#metal)" filter="url(#shadow)" stroke="#252127" stroke-width="2">
+<path d="M55 40 L172 95 L172 205 L139 173 L139 112 L98 92 L98 151 L55 208 Z"></path>
+<path d="M365 40 L248 95 L248 205 L281 173 L281 112 L322 92 L322 151 L365 208 Z"></path>
+<path d="M182 90 L210 74 L238 90 L238 209 L210 226 L182 209 Z"></path>
+<path d="M182 90 L210 109 L238 90 L210 74 Z"></path>
+</g>
+</svg>
+<div class="eyebrow">Mixing · Mastering · Production</div>
+<h1>Enter the Studio</h1>
+<p class="intro">Dark, detailed production and finishing for artists who want their records to hit harder, feel bigger and translate everywhere.</p>
+<div class="portal-grid">
+<a class="portal" href="#services">
+<div class="small">Available Now</div>
+<h2>Mixing / Mastering / Production</h2>
+<p>Choose a package, select your track quantity and send your project through when you’re ready.</p>
+</a>
+<div class="portal future">
+<div class="small">Coming Later</div>
+<h2>Plugins &amp; Samples</h2>
+</div>
+</div>
+</header>
+<main>
+<section id="services">
+<div class="wrap">
+<div class="section-title">
+<div class="kicker">Services</div>
+<h2>Choose Your Level</h2>
+<p>Choose your package and track quantity. Each extra track adds another 2% discount to the per-track rate, up to 18% at 10 tracks. You pay 50% to book, then only pay the remaining 50% after your first revision if you choose to continue.</p>
+</div>
+<div class="packages">
+<details class="package">
+<summary>
+<div class="pkg-head">
+<div class="pkg-name">Basic</div>
+<div class="price">£90</div>
+</div>
+<p class="pkg-short">Basic mix/master including essential stem alignment and vocal tuning.</p>
+<div class="pkg-meta">2 revisions</div>
+</summary>
+<div class="pkg-body">
+<p>Best for well-recorded sessions where the production is already established. Includes balancing, editing, processing, vocal tuning and final mastering.</p>
+<div class="order-box">
+<span class="qty-label">Order quantity — 2% more discount per additional track</span>
+<input checked="" class="qty-radio" id="basic-q1" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q2" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q3" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q4" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q5" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q6" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q7" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q8" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q9" name="basic-qty" type="radio"/><input class="qty-radio" id="basic-q10" name="basic-qty" type="radio"/>
+<div class="qty-pills"><label for="basic-q1">1</label><label for="basic-q2">2</label><label for="basic-q3">3</label><label for="basic-q4">4</label><label for="basic-q5">5</label><label for="basic-q6">6</label><label for="basic-q7">7</label><label for="basic-q8">8</label><label for="basic-q9">9</label><label for="basic-q10">10</label></div>
+<div class="qty-prices">
+<div class="qty-panel panel-basic-q1">
+<div class="price-breakdown"><span>Per track</span><strong>£90.00</strong><span>Quantity</span><strong>1</strong><span>Discount</span><strong>0%</strong><span>Full project</span><strong>£90.00</strong><span>Deposit today</span><strong>£45.00</strong><span>Later balance</span><strong>£45.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/28EbJ2dW739x1eZcSJgQE0E" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £45.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q2">
+<div class="price-breakdown"><span>Per track</span><strong>£88.20</strong><span>Quantity</span><strong>2</strong><span>Discount</span><strong>2%</strong><span>Full project</span><strong>£176.40</strong><span>Deposit today</span><strong>£88.20</strong><span>Later balance</span><strong>£88.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/cNifZi9FR25t6zjf0RgQE0F" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £88.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q3">
+<div class="price-breakdown"><span>Per track</span><strong>£86.40</strong><span>Quantity</span><strong>3</strong><span>Discount</span><strong>4%</strong><span>Full project</span><strong>£259.20</strong><span>Deposit today</span><strong>£129.60</strong><span>Later balance</span><strong>£129.60</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/7sY28sdW7fWjcXH8CtgQE0G" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £129.60</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q4">
+<div class="price-breakdown"><span>Per track</span><strong>£84.60</strong><span>Quantity</span><strong>4</strong><span>Discount</span><strong>6%</strong><span>Full project</span><strong>£338.40</strong><span>Deposit today</span><strong>£169.20</strong><span>Later balance</span><strong>£169.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B64gAg4f11p9Lvf0RgQE0H" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £169.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q5">
+<div class="price-breakdown"><span>Per track</span><strong>£82.80</strong><span>Quantity</span><strong>5</strong><span>Discount</span><strong>8%</strong><span>Full project</span><strong>£414.00</strong><span>Deposit today</span><strong>£207.00</strong><span>Later balance</span><strong>£207.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/4gM9AU7xJaBZ4rb05XgQE0I" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £207.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q6">
+<div class="price-breakdown"><span>Per track</span><strong>£81.00</strong><span>Quantity</span><strong>6</strong><span>Discount</span><strong>10%</strong><span>Full project</span><strong>£486.00</strong><span>Deposit today</span><strong>£243.00</strong><span>Later balance</span><strong>£243.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B6bJ2cS3aBZ9Lv05XgQE0J" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £243.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q7">
+<div class="price-breakdown"><span>Per track</span><strong>£79.20</strong><span>Quantity</span><strong>7</strong><span>Discount</span><strong>12%</strong><span>Full project</span><strong>£554.40</strong><span>Deposit today</span><strong>£277.20</strong><span>Later balance</span><strong>£277.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/fZu8wQ6tF11pf5Pf0RgQE0K" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £277.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q8">
+<div class="price-breakdown"><span>Per track</span><strong>£77.40</strong><span>Quantity</span><strong>8</strong><span>Discount</span><strong>14%</strong><span>Full project</span><strong>£619.20</strong><span>Deposit today</span><strong>£309.60</strong><span>Later balance</span><strong>£309.60</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/00w28s7xJh0n6zj3i9gQE0L" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £309.60</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q9">
+<div class="price-breakdown"><span>Per track</span><strong>£75.60</strong><span>Quantity</span><strong>9</strong><span>Discount</span><strong>16%</strong><span>Full project</span><strong>£680.40</strong><span>Deposit today</span><strong>£340.20</strong><span>Later balance</span><strong>£340.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/8x214o8BNfWj4rb4mdgQE0M" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £340.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-basic-q10">
+<div class="price-breakdown"><span>Per track</span><strong>£73.80</strong><span>Quantity</span><strong>10</strong><span>Discount</span><strong>18%</strong><span>Full project</span><strong>£738.00</strong><span>Deposit today</span><strong>£369.00</strong><span>Later balance</span><strong>£369.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/eVq5kE19l7pNe1LdWNgQE0N" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £369.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+</div>
+</div>
+</div>
+</details>
+<details class="package">
+<summary>
+<div class="pkg-head">
+<div class="pkg-name">Standard</div>
+<div class="price">£125</div>
+</div>
+<p class="pkg-short">Higher-detail mix/master with production overdubs and deeper editing.</p>
+<div class="pkg-meta">3 revisions</div>
+</summary>
+<div class="pkg-body">
+<p>For sessions that need more detailed editing and production enhancement, including tighter arrangement work, thicker bass layers, vocal tuning and final mastering.</p>
+<div class="order-box">
+<span class="qty-label">Order quantity — 2% more discount per additional track</span>
+<input checked="" class="qty-radio" id="standard-q1" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q2" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q3" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q4" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q5" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q6" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q7" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q8" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q9" name="standard-qty" type="radio"/><input class="qty-radio" id="standard-q10" name="standard-qty" type="radio"/>
+<div class="qty-pills"><label for="standard-q1">1</label><label for="standard-q2">2</label><label for="standard-q3">3</label><label for="standard-q4">4</label><label for="standard-q5">5</label><label for="standard-q6">6</label><label for="standard-q7">7</label><label for="standard-q8">8</label><label for="standard-q9">9</label><label for="standard-q10">10</label></div>
+<div class="qty-prices">
+<div class="qty-panel panel-standard-q1">
+<div class="price-breakdown"><span>Per track</span><strong>£125.00</strong><span>Quantity</span><strong>1</strong><span>Discount</span><strong>0%</strong><span>Full project</span><strong>£125.00</strong><span>Deposit today</span><strong>£62.50</strong><span>Later balance</span><strong>£62.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/3cIcN6dW7bG3cXH3i9gQE0O" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £62.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q2">
+<div class="price-breakdown"><span>Per track</span><strong>£122.50</strong><span>Quantity</span><strong>2</strong><span>Discount</span><strong>2%</strong><span>Full project</span><strong>£245.00</strong><span>Deposit today</span><strong>£122.50</strong><span>Later balance</span><strong>£122.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/7sYfZi3ht7pN1eZdWNgQE0P" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £122.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q3">
+<div class="price-breakdown"><span>Per track</span><strong>£120.00</strong><span>Quantity</span><strong>3</strong><span>Discount</span><strong>4%</strong><span>Full project</span><strong>£360.00</strong><span>Deposit today</span><strong>£180.00</strong><span>Later balance</span><strong>£180.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/6oUbJ2dW74dBf5P9GxgQE0Q" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £180.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q4">
+<div class="price-breakdown"><span>Per track</span><strong>£117.50</strong><span>Quantity</span><strong>4</strong><span>Discount</span><strong>6%</strong><span>Full project</span><strong>£470.00</strong><span>Deposit today</span><strong>£235.00</strong><span>Later balance</span><strong>£235.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/aFa9AU3ht5hF0aVbOFgQE0R" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £235.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q5">
+<div class="price-breakdown"><span>Per track</span><strong>£115.00</strong><span>Quantity</span><strong>5</strong><span>Discount</span><strong>8%</strong><span>Full project</span><strong>£575.00</strong><span>Deposit today</span><strong>£287.50</strong><span>Later balance</span><strong>£287.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/bJe9AU5pBdOb7Dn6ulgQE0S" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £287.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q6">
+<div class="price-breakdown"><span>Per track</span><strong>£112.50</strong><span>Quantity</span><strong>6</strong><span>Discount</span><strong>10%</strong><span>Full project</span><strong>£675.00</strong><span>Deposit today</span><strong>£337.50</strong><span>Later balance</span><strong>£337.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/8x2dRadW711pe1L3i9gQE0T" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £337.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q7">
+<div class="price-breakdown"><span>Per track</span><strong>£110.00</strong><span>Quantity</span><strong>7</strong><span>Discount</span><strong>12%</strong><span>Full project</span><strong>£770.00</strong><span>Deposit today</span><strong>£385.00</strong><span>Later balance</span><strong>£385.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B614obNZ5hF2j3dWNgQE0U" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £385.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q8">
+<div class="price-breakdown"><span>Per track</span><strong>£107.50</strong><span>Quantity</span><strong>8</strong><span>Discount</span><strong>14%</strong><span>Full project</span><strong>£860.00</strong><span>Deposit today</span><strong>£430.00</strong><span>Later balance</span><strong>£430.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/5kQbJ2aJV39x3n76ulgQE0V" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £430.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q9">
+<div class="price-breakdown"><span>Per track</span><strong>£105.00</strong><span>Quantity</span><strong>9</strong><span>Discount</span><strong>16%</strong><span>Full project</span><strong>£945.00</strong><span>Deposit today</span><strong>£472.50</strong><span>Later balance</span><strong>£472.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/14A5kE2dp9xVe1L6ulgQE0W" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £472.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-standard-q10">
+<div class="price-breakdown"><span>Per track</span><strong>£102.50</strong><span>Quantity</span><strong>10</strong><span>Discount</span><strong>18%</strong><span>Full project</span><strong>£1025.00</strong><span>Deposit today</span><strong>£512.50</strong><span>Later balance</span><strong>£512.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/5kQ8wQf0baBZ2j38CtgQE0X" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £512.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+</div>
+</div>
+</div>
+</details>
+<details class="package">
+<summary>
+<div class="pkg-head">
+<div class="pkg-name">High Standard</div>
+<div class="price">£160</div>
+</div>
+<p class="pkg-short">Professional mix/master with extensive editing, synth work and real-drum alignment.</p>
+<div class="pkg-meta">5 revisions</div>
+</summary>
+<div class="pkg-body">
+<p>A more hands-on production package with detailed vocal work, drum cleanup and alignment, synth layers, post-production and mastering.</p>
+<div class="order-box">
+<span class="qty-label">Order quantity — 2% more discount per additional track</span>
+<input checked="" class="qty-radio" id="high-q1" name="high-qty" type="radio"/><input class="qty-radio" id="high-q2" name="high-qty" type="radio"/><input class="qty-radio" id="high-q3" name="high-qty" type="radio"/><input class="qty-radio" id="high-q4" name="high-qty" type="radio"/><input class="qty-radio" id="high-q5" name="high-qty" type="radio"/><input class="qty-radio" id="high-q6" name="high-qty" type="radio"/><input class="qty-radio" id="high-q7" name="high-qty" type="radio"/><input class="qty-radio" id="high-q8" name="high-qty" type="radio"/><input class="qty-radio" id="high-q9" name="high-qty" type="radio"/><input class="qty-radio" id="high-q10" name="high-qty" type="radio"/>
+<div class="qty-pills"><label for="high-q1">1</label><label for="high-q2">2</label><label for="high-q3">3</label><label for="high-q4">4</label><label for="high-q5">5</label><label for="high-q6">6</label><label for="high-q7">7</label><label for="high-q8">8</label><label for="high-q9">9</label><label for="high-q10">10</label></div>
+<div class="qty-prices">
+<div class="qty-panel panel-high-q1">
+<div class="price-breakdown"><span>Per track</span><strong>£160.00</strong><span>Quantity</span><strong>1</strong><span>Discount</span><strong>0%</strong><span>Full project</span><strong>£160.00</strong><span>Deposit today</span><strong>£80.00</strong><span>Later balance</span><strong>£80.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/14AcN6cS3cK77DnaKBgQE0Y" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £80.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q2">
+<div class="price-breakdown"><span>Per track</span><strong>£156.80</strong><span>Quantity</span><strong>2</strong><span>Discount</span><strong>2%</strong><span>Full project</span><strong>£313.60</strong><span>Deposit today</span><strong>£156.80</strong><span>Later balance</span><strong>£156.80</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/bJe8wQf0b4dB1eZ2e5gQE0Z" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £156.80</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q3">
+<div class="price-breakdown"><span>Per track</span><strong>£153.60</strong><span>Quantity</span><strong>3</strong><span>Discount</span><strong>4%</strong><span>Full project</span><strong>£460.80</strong><span>Deposit today</span><strong>£230.40</strong><span>Later balance</span><strong>£230.40</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/4gMcN6g4f7pNf5P8CtgQE10" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £230.40</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q4">
+<div class="price-breakdown"><span>Per track</span><strong>£150.40</strong><span>Quantity</span><strong>4</strong><span>Discount</span><strong>6%</strong><span>Full project</span><strong>£601.60</strong><span>Deposit today</span><strong>£300.80</strong><span>Later balance</span><strong>£300.80</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B628s5pB5hFg9TaKBgQE11" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £300.80</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q5">
+<div class="price-breakdown"><span>Per track</span><strong>£147.20</strong><span>Quantity</span><strong>5</strong><span>Discount</span><strong>8%</strong><span>Full project</span><strong>£736.00</strong><span>Deposit today</span><strong>£368.00</strong><span>Later balance</span><strong>£368.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/fZu00k6tFfWj1eZ4mdgQE12" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £368.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q6">
+<div class="price-breakdown"><span>Per track</span><strong>£144.00</strong><span>Quantity</span><strong>6</strong><span>Discount</span><strong>10%</strong><span>Full project</span><strong>£864.00</strong><span>Deposit today</span><strong>£432.00</strong><span>Later balance</span><strong>£432.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/aFaaEY19laBZ1eZg4VgQE13" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £432.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q7">
+<div class="price-breakdown"><span>Per track</span><strong>£140.80</strong><span>Quantity</span><strong>7</strong><span>Discount</span><strong>12%</strong><span>Full project</span><strong>£985.60</strong><span>Deposit today</span><strong>£492.80</strong><span>Later balance</span><strong>£492.80</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/7sYbJ2aJV4dB7DndWNgQE14" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £492.80</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q8">
+<div class="price-breakdown"><span>Per track</span><strong>£137.60</strong><span>Quantity</span><strong>8</strong><span>Discount</span><strong>14%</strong><span>Full project</span><strong>£1100.80</strong><span>Deposit today</span><strong>£550.40</strong><span>Later balance</span><strong>£550.40</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/bJe8wQcS3fWj4rb9GxgQE15" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £550.40</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q9">
+<div class="price-breakdown"><span>Per track</span><strong>£134.40</strong><span>Quantity</span><strong>9</strong><span>Discount</span><strong>16%</strong><span>Full project</span><strong>£1209.60</strong><span>Deposit today</span><strong>£604.80</strong><span>Later balance</span><strong>£604.80</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/7sY28s05heSf1eZ6ulgQE16" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £604.80</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-high-q10">
+<div class="price-breakdown"><span>Per track</span><strong>£131.20</strong><span>Quantity</span><strong>10</strong><span>Discount</span><strong>18%</strong><span>Full project</span><strong>£1312.00</strong><span>Deposit today</span><strong>£656.00</strong><span>Later balance</span><strong>£656.00</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/00w4gA19l8tR1eZ3i9gQE17" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £656.00</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+</div>
+</div>
+</div>
+</details>
+<details class="package">
+<summary>
+<div class="pkg-head">
+<div class="pkg-name">Premium</div>
+<div class="price">£215</div>
+</div>
+<p class="pkg-short">Full treatment with reference matching, custom electronic work and maximum detail.</p>
+<div class="pkg-meta">Up to 7 revisions</div>
+</summary>
+<div class="pkg-body">
+<p>The complete treatment: advanced editing, extensive vocal work, production overdubs, post synths, drum alignment, custom electronic work, reference matching and final mastering.</p>
+<div class="order-box">
+<span class="qty-label">Order quantity — 2% more discount per additional track</span>
+<input checked="" class="qty-radio" id="premium-q1" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q2" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q3" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q4" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q5" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q6" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q7" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q8" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q9" name="premium-qty" type="radio"/><input class="qty-radio" id="premium-q10" name="premium-qty" type="radio"/>
+<div class="qty-pills"><label for="premium-q1">1</label><label for="premium-q2">2</label><label for="premium-q3">3</label><label for="premium-q4">4</label><label for="premium-q5">5</label><label for="premium-q6">6</label><label for="premium-q7">7</label><label for="premium-q8">8</label><label for="premium-q9">9</label><label for="premium-q10">10</label></div>
+<div class="qty-prices">
+<div class="qty-panel panel-premium-q1">
+<div class="price-breakdown"><span>Per track</span><strong>£215.00</strong><span>Quantity</span><strong>1</strong><span>Discount</span><strong>0%</strong><span>Full project</span><strong>£215.00</strong><span>Deposit today</span><strong>£107.50</strong><span>Later balance</span><strong>£107.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/7sY14o9FR25tbTDcSJgQE18" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £107.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q2">
+<div class="price-breakdown"><span>Per track</span><strong>£210.70</strong><span>Quantity</span><strong>2</strong><span>Discount</span><strong>2%</strong><span>Full project</span><strong>£421.40</strong><span>Deposit today</span><strong>£210.70</strong><span>Later balance</span><strong>£210.70</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/00w14o8BNh0n1eZg4VgQE19" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £210.70</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q3">
+<div class="price-breakdown"><span>Per track</span><strong>£206.40</strong><span>Quantity</span><strong>3</strong><span>Discount</span><strong>4%</strong><span>Full project</span><strong>£619.20</strong><span>Deposit today</span><strong>£309.60</strong><span>Later balance</span><strong>£309.60</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/14AbJ2g4fcK77DncSJgQE1a" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £309.60</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q4">
+<div class="price-breakdown"><span>Per track</span><strong>£202.10</strong><span>Quantity</span><strong>4</strong><span>Discount</span><strong>6%</strong><span>Full project</span><strong>£808.40</strong><span>Deposit today</span><strong>£404.20</strong><span>Later balance</span><strong>£404.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/3cIbJ22dph0n5vfaKBgQE1b" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £404.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q5">
+<div class="price-breakdown"><span>Per track</span><strong>£197.80</strong><span>Quantity</span><strong>5</strong><span>Discount</span><strong>8%</strong><span>Full project</span><strong>£989.00</strong><span>Deposit today</span><strong>£494.50</strong><span>Later balance</span><strong>£494.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B65kE6tF4dB6zj1a1gQE1c" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £494.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q6">
+<div class="price-breakdown"><span>Per track</span><strong>£193.50</strong><span>Quantity</span><strong>6</strong><span>Discount</span><strong>10%</strong><span>Full project</span><strong>£1161.00</strong><span>Deposit today</span><strong>£580.50</strong><span>Later balance</span><strong>£580.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/3cI00k8BNdOb8Hr8CtgQE1d" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £580.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q7">
+<div class="price-breakdown"><span>Per track</span><strong>£189.20</strong><span>Quantity</span><strong>7</strong><span>Discount</span><strong>12%</strong><span>Full project</span><strong>£1324.40</strong><span>Deposit today</span><strong>£662.20</strong><span>Later balance</span><strong>£662.20</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/aFa3cwdW7bG32j38CtgQE1e" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £662.20</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q8">
+<div class="price-breakdown"><span>Per track</span><strong>£184.90</strong><span>Quantity</span><strong>8</strong><span>Discount</span><strong>14%</strong><span>Full project</span><strong>£1479.20</strong><span>Deposit today</span><strong>£739.60</strong><span>Later balance</span><strong>£739.60</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/cNi00k3ht25t8Hr2e5gQE1f" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £739.60</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q9">
+<div class="price-breakdown"><span>Per track</span><strong>£180.60</strong><span>Quantity</span><strong>9</strong><span>Discount</span><strong>16%</strong><span>Full project</span><strong>£1625.40</strong><span>Deposit today</span><strong>£812.70</strong><span>Later balance</span><strong>£812.70</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/dRm3cw4lxcK75vf2e5gQE1g" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £812.70</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+<div class="qty-panel panel-premium-q10">
+<div class="price-breakdown"><span>Per track</span><strong>£176.30</strong><span>Quantity</span><strong>10</strong><span>Discount</span><strong>18%</strong><span>Full project</span><strong>£1763.00</strong><span>Deposit today</span><strong>£881.50</strong><span>Later balance</span><strong>£881.50</strong></div>
+<div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
+<a class="book" href="https://book.stripe.com/9B64gA19ldOb6zj5qhgQE1h" rel="noopener noreferrer" target="_blank">Pay 50% deposit — £881.50</a>
+<span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="section-title">
+<div class="kicker">Hear the Work</div>
+<h2>Before / After</h2>
+<p>Audio examples can be added here when you’re ready.</p>
+</div>
+<div class="hear">
+<div class="audio-card"><div class="tag">Future Audio</div><h3>Mix Transformation</h3><p>A before/after example slot for a completed mix and master.</p></div>
+<div class="audio-card"><div class="tag">Future Audio</div><h3>Production Showcase</h3><p>A production example slot for overdubs, synth work and arrangement enhancement.</p></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap custom">
+<div class="section-title" style="margin-bottom:0">
+<div class="kicker">Something Different?</div>
+<h2>Custom Packages</h2>
+</div>
+<p>For EPs, albums, unusual production requirements or projects that don’t fit a standard package, message me directly and we can build something around the project.</p>
+<a class="cta" href="https://ig.me/m/Mat.munday_hb" rel="noopener noreferrer" target="_blank">Message on Instagram</a>
+</div>
+</section>
+<section id="after-booking">
+<div class="wrap booking-confirm">
+<div class="section-title" style="margin-bottom:26px">
+<div class="kicker">What Happens After Booking</div>
+<h2>50% Now. You Control The Rest.</h2>
+<p>The second half is not taken automatically. You only make the final 50% payment after you have heard your first revision and decided you want to continue.</p>
+</div>
+<div class="flow-grid">
+<div class="flow-step"><b>01</b><h3>Choose &amp; Book</h3><p>Select your package and number of tracks. The website shows the full project total and your 50% booking deposit.</p></div>
+<div class="flow-step"><b>02</b><h3>Email + Stripe</h3><p>Stripe asks for your email before your payment method, along with your artist and project details. You then pay the 50% deposit securely.</p></div>
+<div class="flow-step"><b>03</b><h3>Send Your Stems</h3><p>Send stems, notes and reference tracks. Your booking confirmation explains the next steps clearly.</p></div>
+<div class="flow-step"><b>04</b><h3>First Revision</h3><p>You receive your first revision while only the deposit has been paid.</p></div>
+<div class="flow-step"><b>05</b><h3>You Decide</h3><p>If you want to continue, Mproductions emails the remaining 50% Stripe payment link to the email used at checkout. If you do not continue, no second payment is taken.</p></div>
+<div class="flow-step"><b>06</b><h3>Finish The Project</h3><p>You actively open the second Stripe link and make the final 50% payment. The remaining included revisions and final delivery then continue.</p></div>
+</div>
+<div class="balance-protect">
+<strong>No automatic second charge</strong>
+<span>Mproductions does not automatically take the remaining 50% from your bank or card. The client must choose to continue and actively pay the second secure Stripe link.</span>
+</div>
+</div>
+</section><section>
+<div class="wrap stems">
+<div class="section-title" style="margin-bottom:0">
+<div class="kicker">Project Delivery</div>
+<h2>Send Your Stems</h2>
+</div>
+<p>Upload your stems to the Mproductions incoming folder, then email the project notes and any references. Typical delivery is usually within two weeks.</p>
+<div class="stem-actions">
+<a class="cta" href="https://drive.google.com/drive/folders/1wt5K6yk-ndHhfd37B7YsByVEKDCGr6Aj" rel="noopener noreferrer" target="_blank">Open Stem Upload Folder</a>
+<a class="cta" href="mailto:mathewmundayhb@gmail.com?subject=Mproductions%20Project%20Notes">Email Project Notes</a>
+</div>
+<span class="smallnote">Google may require the client to sign in before accessing the folder.</span>
+</div>
+</section>
+</main>
+<footer class="wrap">© Mproductions · Mixing · Mastering · Production · <a href="/terms.html">Terms &amp; Cancellation</a></footer>
+</body>
+</html>
