@@ -444,120 +444,6 @@
       55%{opacity:1;filter:blur(2px)}
       100%{opacity:1;filter:blur(0);transform:scale(1)}
     }
-    .space-transition{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-      pointer-events:none;
-      opacity:0;
-      visibility:hidden;
-      overflow:hidden;
-      background:#000;
-      transition:opacity .12s linear,visibility 0s linear .7s;
-    }
-    .space-transition.is-active{
-      opacity:1;
-      visibility:visible;
-      transition:opacity .08s linear;
-    }
-    .warp-core{
-      position:absolute;
-      left:50%;top:50%;
-      width:12px;height:12px;
-      border-radius:50%;
-      transform:translate(-50%,-50%) scale(.01);
-      background:radial-gradient(circle,#fff 0 8%,rgba(228,217,235,.92) 9% 16%,rgba(145,112,156,.55) 24%,rgba(30,15,38,.15) 52%,transparent 72%);
-      box-shadow:0 0 40px rgba(225,213,232,.6),0 0 120px rgba(135,88,149,.28);
-    }
-    .space-transition.is-active .warp-core{
-      animation:warpCore .66s cubic-bezier(.18,.72,.2,1) forwards;
-    }
-    @keyframes warpCore{
-      0%{transform:translate(-50%,-50%) scale(.01);opacity:.4}
-      35%{opacity:1}
-      100%{transform:translate(-50%,-50%) scale(115);opacity:0}
-    }
-
-    .warp-nebula{
-      position:absolute;
-      width:70vw;height:34vw;
-      min-width:560px;min-height:260px;
-      border-radius:50%;
-      filter:blur(48px);
-      opacity:0;
-      mix-blend-mode:screen;
-    }
-    .warp-nebula-one{
-      left:-20vw;top:18vh;
-      background:radial-gradient(ellipse,rgba(152,78,135,.58),rgba(79,37,91,.22) 42%,transparent 72%);
-      transform:rotate(-12deg) translateX(-8vw);
-    }
-    .warp-nebula-two{
-      right:-24vw;bottom:6vh;
-      background:radial-gradient(ellipse,rgba(50,115,118,.42),rgba(25,61,68,.18) 44%,transparent 74%);
-      transform:rotate(12deg) translateX(8vw);
-    }
-    .space-transition.is-active .warp-nebula-one{animation:nebulaSweepOne .62s ease-out forwards}
-    .space-transition.is-active .warp-nebula-two{animation:nebulaSweepTwo .66s ease-out forwards}
-    @keyframes nebulaSweepOne{
-      0%{opacity:0;transform:rotate(-12deg) translateX(-18vw) scale(.82)}
-      42%{opacity:.65}
-      100%{opacity:0;transform:rotate(-4deg) translateX(22vw) scale(1.25)}
-    }
-    @keyframes nebulaSweepTwo{
-      0%{opacity:0;transform:rotate(12deg) translateX(18vw) scale(.82)}
-      42%{opacity:.52}
-      100%{opacity:0;transform:rotate(4deg) translateX(-22vw) scale(1.25)}
-    }
-
-    .warp-streaks{
-      position:absolute;
-      inset:-40%;
-      left:50%;top:50%;
-      width:180%;height:180%;
-      transform:translate(-50%,-50%) scale(.12);
-      opacity:0;
-      background:
-        repeating-conic-gradient(
-          from 0deg,
-          rgba(255,255,255,.72) 0deg .18deg,
-          transparent .2deg 3.1deg,
-          rgba(187,166,196,.36) 3.2deg 3.34deg,
-          transparent 3.38deg 6.2deg
-        );
-      -webkit-mask-image:radial-gradient(circle at center,transparent 0 3%,#000 10%,#000 44%,transparent 72%);
-      mask-image:radial-gradient(circle at center,transparent 0 3%,#000 10%,#000 44%,transparent 72%);
-      filter:blur(.45px);
-    }
-    .space-transition.is-active .warp-streaks{
-      animation:warpStreaks .58s cubic-bezier(.16,.75,.22,1) forwards;
-    }
-    @keyframes warpStreaks{
-      0%{opacity:0;transform:translate(-50%,-50%) scale(.08) rotate(0deg)}
-      22%{opacity:.72}
-      100%{opacity:0;transform:translate(-50%,-50%) scale(2.2) rotate(3deg)}
-    }
-
-    .space-nav-exit{
-      animation:spacePageOut .52s cubic-bezier(.55,.02,.74,.42) forwards !important;
-    }
-    @keyframes spacePageOut{
-      0%{opacity:1;filter:blur(0);transform:scale(1)}
-      100%{opacity:.08;filter:blur(6px);transform:scale(.985)}
-    }
-
-    @media(max-width:760px){
-      .warp-nebula{filter:blur(36px)}
-      .space-transition.is-active .warp-core{animation-duration:.56s}
-      .space-transition.is-active .warp-streaks{animation-duration:.5s}
-    }
-    @media(prefers-reduced-motion:reduce){
-      .space-page{animation:none!important}
-      .space-nav-exit{animation:none!important}
-      .warp-core,.warp-nebula,.warp-streaks{animation:none!important}
-      .space-transition.is-active{opacity:1;background:#000}
-    }
-    
     /* Featured Work */
     .featured-work{
       position:relative;
@@ -2547,39 +2433,6 @@ html{scroll-behavior:smooth}
   filter:saturate(.78) contrast(1.08) brightness(.90);
 }
 
-/* Fast, seamless page changes — much lighter than the old warp transition. */
-.fast-page-fade{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  pointer-events:none;
-  opacity:0;
-  visibility:hidden;
-  background:
-    radial-gradient(circle at 50% 45%,rgba(74,52,81,.18),transparent 42%),
-    #000;
-  transition:opacity .12s ease,visibility 0s linear .13s;
-}
-.fast-page-fade.active{
-  opacity:1;
-  visibility:visible;
-  transition:opacity .10s ease;
-}
-html{background:#000}
-body{
-  animation:fastPageIn .20s ease-out both;
-}
-@keyframes fastPageIn{
-  from{opacity:.72}
-  to{opacity:1}
-}
-/* Native cross-document View Transitions where supported. */
-@view-transition{navigation:auto}
-::view-transition-old(root){animation:.13s ease both vtOld}
-::view-transition-new(root){animation:.18s ease both vtNew}
-@keyframes vtOld{to{opacity:0}}
-@keyframes vtNew{from{opacity:0}to{opacity:1}}
-
 /* Render lower-page content only as it approaches the viewport. */
 @supports(content-visibility:auto){
   main > section:not(:first-child),
@@ -2606,9 +2459,8 @@ body{
 
 
 
-/* ===== Brighter galaxies + lightweight cosmic navigation ===== */
-
-/* Make the existing embedded galaxy art more visible without adding image weight. */
+/* ===== Brighter, more prominent galaxies — no navigation animation ===== */
+html{background:#000}
 .real-galaxy{
   scale:1.08;
   filter:
@@ -2629,112 +2481,16 @@ body{
     transparent 73%) !important;
   filter:blur(4px) drop-shadow(0 0 10px rgba(240,220,246,.28)) !important;
 }
-
-/* The navigation effect is CSS-only: no extra images, video, canvas or libraries. */
-.fast-page-fade{
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 50%,rgba(233,224,242,.10) 0 2%,rgba(113,72,126,.22) 8%,rgba(37,72,80,.13) 24%,transparent 48%),
-    radial-gradient(circle at 50% 50%,rgba(61,41,69,.32),transparent 54%),
-    #000 !important;
-  transition:opacity .13s ease,visibility 0s linear .14s !important;
-  animation:cosmicArrival .30s ease-out both;
-}
-.fast-page-fade::before{
-  content:"";
-  position:absolute;
-  inset:-75%;
-  opacity:0;
-  transform:scale(.42) rotate(0deg);
-  background:
-    repeating-conic-gradient(from 0deg at 50% 50%,
-      transparent 0deg 3.3deg,
-      rgba(233,239,255,.00) 3.35deg 3.7deg,
-      rgba(222,231,255,.42) 3.72deg 3.84deg,
-      transparent 3.87deg 7.5deg);
-  -webkit-mask-image:radial-gradient(circle at center,transparent 0 7%,#000 15% 66%,transparent 88%);
-  mask-image:radial-gradient(circle at center,transparent 0 7%,#000 15% 66%,transparent 88%);
-  filter:blur(.25px) drop-shadow(0 0 5px rgba(197,213,255,.18));
-  will-change:transform,opacity;
-}
-.fast-page-fade::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:16vmin;
-  height:16vmin;
-  border-radius:50%;
-  opacity:0;
-  transform:translate(-50%,-50%) scale(.14);
-  background:
-    radial-gradient(circle,
-      rgba(255,255,255,.96) 0 2%,
-      rgba(231,217,239,.72) 5%,
-      rgba(133,94,148,.34) 18%,
-      rgba(56,101,108,.17) 39%,
-      transparent 69%);
-  box-shadow:
-    0 0 38px rgba(222,205,231,.28),
-    0 0 90px rgba(116,75,132,.20);
-  will-change:transform,opacity;
-}
-.fast-page-fade.active{
-  opacity:1 !important;
-  visibility:visible !important;
-  animation:none !important;
-  transition:opacity .11s ease !important;
-}
-.fast-page-fade.active::before{
-  animation:warpStreaks .21s cubic-bezier(.22,.74,.25,1) both;
-}
-.fast-page-fade.active::after{
-  animation:warpCore .21s ease-in both;
-}
-
-@keyframes warpStreaks{
-  0%{opacity:0;transform:scale(.38) rotate(-4deg)}
-  24%{opacity:.16}
-  72%{opacity:.72}
-  100%{opacity:.18;transform:scale(2.65) rotate(4deg)}
-}
-@keyframes warpCore{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.10)}
-  48%{opacity:.38}
-  100%{opacity:.96;transform:translate(-50%,-50%) scale(6.2)}
-}
-
-/* A very short "arrival" glow on the destination page. */
-@keyframes cosmicArrival{
-  0%{visibility:visible;opacity:.92}
-  22%{visibility:visible;opacity:.46}
-  100%{visibility:hidden;opacity:0}
-}
-
-/* Give the existing page fade a tiny depth cue as a new page arrives. */
-body{
-  animation:cosmicPageIn .28s cubic-bezier(.16,.78,.28,1) both !important;
-}
-@keyframes cosmicPageIn{
-  from{opacity:.76;transform:scale(.997)}
-  to{opacity:1;transform:scale(1)}
-}
-
 @media(max-width:700px){
   .real-galaxy{scale:1.12}
-  .galaxy-photo-layer{filter:saturate(1.08) contrast(1.14) brightness(1.15) !important}
-}
-
-/* Respect accessibility settings and keep navigation immediate. */
-@media(prefers-reduced-motion:reduce){
-  .fast-page-fade{animation:none !important}
-  .fast-page-fade::before,.fast-page-fade::after{animation:none !important}
-  body{animation:none !important}
+  .galaxy-photo-layer{
+    filter:saturate(1.08) contrast(1.14) brightness(1.15) !important;
+  }
 }
 
 </style>
 <link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/></head>
-<body class="space-page"><div aria-hidden="true" class="fast-page-fade" id="fastPageFade"></div><svg aria-hidden="true" class="icon-defs" focusable="false">
+<body class="space-page"><svg aria-hidden="true" class="icon-defs" focusable="false">
 <symbol id="i-wave" viewbox="0 0 24 24">
 <path d="M3 12h2l2-6 3 12 3-16 3 14 2-8 2 4h1"></path>
 </symbol>
@@ -3201,33 +2957,5 @@ else renderMembership(null);
 supabase.auth.onAuthStateChange((_mpEvent, mpSession) => {
   setTimeout(() => loadMembershipForUser(mpSession?.user || null), 0);
 });
-</script><script>
-(function(){
-  const fade = document.getElementById('fastPageFade');
-  if(!fade) return;
-
-  function internalPageLink(a){
-    if(!a || !a.href || a.target === '_blank' || a.hasAttribute('download')) return false;
-    if(a.href.startsWith('mailto:') || a.href.startsWith('tel:')) return false;
-    const u = new URL(a.href, location.href);
-    if(u.origin !== location.origin) return false;
-    if(u.pathname === location.pathname && u.search === location.search && u.hash) return false;
-    return /\.(html)?$/.test(u.pathname) || u.pathname.endsWith('/');
-  }
-
-  document.addEventListener('click', function(e){
-    const a = e.target.closest && e.target.closest('a');
-    if(!internalPageLink(a)) return;
-    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    e.preventDefault();
-    fade.classList.add('active');
-    const href = a.href;
-    setTimeout(function(){ location.href = href; }, 190);
-  });
-
-  window.addEventListener('pageshow', function(){
-    fade.classList.remove('active');
-  });
-})();
 </script></body>
 </html>
