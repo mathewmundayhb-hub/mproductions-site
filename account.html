@@ -3071,5 +3071,20 @@ else renderMembership(null);
 supabase.auth.onAuthStateChange((_mpEvent, mpSession) => {
   setTimeout(() => loadMembershipForUser(mpSession?.user || null), 0);
 });
-</script></body>
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  if(new URLSearchParams(location.search).get('owner_booking')==='thanks'){
+    const main=document.querySelector('.account-main');
+    if(main){
+      const note=document.createElement('div');
+      note.style.cssText='margin:0 0 18px;padding:13px 15px;border:1px solid #607164;background:rgba(24,42,29,.55);color:#d5e1d7;font-size:.80rem;line-height:1.45';
+      note.textContent='£0 owner Stripe booking completed. Your service booking has been recorded.';
+      main.prepend(note);
+    }
+  }
+});
+</script>
+
+</body>
 </html>

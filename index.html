@@ -2299,9 +2299,15 @@ html{scroll-behavior:smooth}
   position:fixed;
   top:0;
   right:0;
-  bottom:0;
+  bottom:auto;
   z-index:8999;
   width:min(390px,92vw);
+  height:100vh;
+  height:100dvh;
+  max-height:100dvh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
   padding:18px;
   border-left:1px solid #4c414f;
   background:
@@ -2417,6 +2423,11 @@ html{scroll-behavior:smooth}
   .orders-drawer{
     width:min(360px,94vw);
     padding:14px;
+    padding-bottom:calc(22px + env(safe-area-inset-bottom));
+  }
+  .orders-scrim{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
   }
 }
 
@@ -3340,6 +3351,13 @@ function esc(text){
 function itemId(item){
   return `${item.package}::${item.quantity}`;
 }
+function ownerCheckoutUrl(base, packageId, qty, email){
+  if(!base) return '';
+  const ref=`owner_${packageId}_${qty}`.replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,200);
+  const sep=base.includes('?')?'&':'?';
+  const locked=email ? `&locked_prefilled_email=${encodeURIComponent(email)}` : '';
+  return `${base}${sep}client_reference_id=${encodeURIComponent(ref)}${locked}`;
+}
 function showToast(text){
   toast.textContent = text;
   toast.classList.add('show');
@@ -3351,6 +3369,7 @@ function setDrawer(open){
   ordersDrawer.setAttribute('aria-hidden', open ? 'false' : 'true');
   basketButton.setAttribute('aria-expanded', open ? 'true' : 'false');
   ordersScrim.hidden = !open;
+  if(open) requestAnimationFrame(()=>{ ordersDrawer.scrollTop=0; });
 }
 function renderCart(){
   const cart = readCart();
@@ -3364,7 +3383,8 @@ function renderCart(){
     depositTotal += moneyValue(item.deposit);
     const el = document.createElement('article');
     el.className = 'basket-item';
-    const freeAccess = moneyValue(item.deposit)===0 || !item.link;
+    const zeroStripe = moneyValue(item.deposit)===0 && !!item.link;
+    const missingLink = !item.link;
     el.innerHTML = `
       <div class="basket-item-top">
         <div class="basket-item-title">
@@ -3375,11 +3395,13 @@ function renderCart(){
       </div>
       <div class="basket-prices">
         <span>Full project</span><strong>${esc(item.full)}</strong>
-        <span>${freeAccess?'Payment required':'Deposit today'}</span><strong>${esc(item.deposit)}</strong>
+        <span>${zeroStripe?'Stripe checkout':'Deposit today'}</span><strong>${esc(item.deposit)}</strong>
       </div>
-      ${freeAccess
-        ? `<a class="basket-checkout" href="#send-stems">Start Free Project</a>`
-        : `<a class="basket-checkout" href="${esc(item.link)}" target="_blank" rel="noopener noreferrer">Pay ${esc(item.deposit)} Deposit</a>`
+      ${zeroStripe
+        ? `<a class="basket-checkout owner-zero-checkout" href="${esc(item.link)}">Complete £0 Stripe Booking</a>`
+        : missingLink
+          ? `<button class="basket-checkout" type="button" disabled>Checkout unavailable</button>`
+          : `<a class="basket-checkout" href="${esc(item.link)}" target="_blank" rel="noopener noreferrer">Pay ${esc(item.deposit)} Deposit</a>`
       }`;
     basketItems.appendChild(el);
   });
@@ -3418,6 +3440,11 @@ document.querySelectorAll('.add-to-basket').forEach(btn => {
 });
 
 basketItems.addEventListener('click', e => {
+  const checkout = e.target.closest('.basket-checkout');
+  if(checkout && !checkout.disabled){
+    setDrawer(false);
+    return;
+  }
   const btn = e.target.closest('[data-remove]');
   if(!btn) return;
   const cart = readCart();
@@ -3457,7 +3484,7 @@ function syncCartFromButtons(){
   if(window.MP_CART_REFRESH) window.MP_CART_REFRESH();
 }
 
-function applyMemberPrices(rows){
+function applyMemberPrices(rows, ownerCheckoutBase='', ownerEmail=''){
   const ownerFree=rows.length===40 && rows.every(r=>Number(r.full_amount_pence)===0 && Number(r.deposit_amount_pence)===0);
   const byKey=new Map(rows.map(r=>[`${r.package_id}::${r.track_quantity}`,r]));
   document.querySelectorAll('.add-to-basket').forEach(btn=>{
@@ -3473,7 +3500,10 @@ function applyMemberPrices(rows){
       strong[4].textContent=money(dep);
       strong[5].textContent=money(bal);
     }
-    btn.dataset.deposit=money(dep); btn.dataset.full=money(full); btn.dataset.stripeLink=r.stripe_payment_link||'';
+    btn.dataset.deposit=money(dep); btn.dataset.full=money(full);
+    btn.dataset.stripeLink=ownerFree
+      ? ownerCheckoutUrl(ownerCheckoutBase, r.package_id, r.track_quantity, ownerEmail)
+      : (r.stripe_payment_link||'');
     const line=panel?.querySelector('.discount-line');
     if(line) line.textContent=ownerFree
       ? 'Owner access active — this project is free on your account. No Stripe payment is required.'
@@ -3484,7 +3514,7 @@ function applyMemberPrices(rows){
   document.getElementById('memberPricingKicker').textContent=ownerFree?'Owner Access Active':'Member Pricing Active';
   document.getElementById('memberPricingTitle').textContent=ownerFree?'Everything is free on this account':'Your membership discount is applied';
   document.getElementById('memberPricingText').textContent=ownerFree
-    ? 'Your private owner account has permanent free access to all Mproductions service packages and released sample packs.'
+    ? 'Your private owner account has permanent free access. Service bookings still go through Stripe as a £0 checkout so they are recorded normally.'
     : 'Prices below now include your 5% member saving plus the extra member multi-song discount on top of the standard quantity discount.';
   const action=document.getElementById('memberPricingAction'); action.textContent='My Account'; action.href='account.html';
   syncCartFromButtons();
@@ -3497,8 +3527,13 @@ try{
     const dock=document.getElementById('dockAccountText'); if(dock) dock.textContent=name?`My Account · ${name}`:'My Account';
     const {data:membership}=await supabase.from('memberships').select('status,current_period_end,owner_free_access').eq('user_id',session.user.id).maybeSingle();
     if(membership && (membership.owner_free_access || ACTIVE.has(membership.status))){
+      let ownerCheckoutBase='';
+      if(membership.owner_free_access){
+        const {data:ownerLink}=await supabase.rpc('get_my_owner_checkout_link');
+        if(typeof ownerLink==='string') ownerCheckoutBase=ownerLink;
+      }
       const {data:prices,error}=await supabase.rpc('get_my_member_prices');
-      if(!error && Array.isArray(prices) && prices.length===40) applyMemberPrices(prices);
+      if(!error && Array.isArray(prices) && prices.length===40) applyMemberPrices(prices,ownerCheckoutBase,session.user.email||'');
     }
   }
 }catch(e){console.warn('Membership pricing unavailable',e)}
