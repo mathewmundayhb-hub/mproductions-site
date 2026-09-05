@@ -3201,7 +3201,7 @@ html{background:#000}
 <div class="qty-panel panel-premium-q8">
 <div class="price-breakdown"><span>Per track</span><strong>£184.90</strong><span>Quantity</span><strong>8</strong><span>Discount</span><strong>14%</strong><span>Full project</span><strong>£1479.20</strong><span>Deposit today</span><strong>£739.60</strong><span>Later balance</span><strong>£739.60</strong></div>
 <div class="discount-line">50% deposit today. The remaining 50% is only due after your first revision if you decide to continue.</div>
-<button class="book add-to-basket" data-deposit="£739.60" data-full="£1479.20" data-package="Premium" data-package-id="premium" data-quantity="8" data-stripe-link="https://book.stripe.com/cNi00k3ht25t8Hr2e5gQE1f" type="button">Add to Basket — £739.60</button>
+<button class="book add-to-basket" data-deposit="£739.60" data-full="£1479.20" data-package="Premium" data-package-id="premium" data-quantity="8" data-stripe-link="https://book.stripe.com/cNifZiaJV6lJ7Dnf0RgQE1f" type="button">Add to Basket — £739.60</button>
 <span class="checkout-note">Stripe asks for your email before the payment details. That email is used for your booking and later balance-payment message. <a href="/terms.html">Terms &amp; Cancellation</a></span>
 </div>
 <div class="qty-panel panel-premium-q9">
@@ -3355,8 +3355,7 @@ function ownerCheckoutUrl(base, packageId, qty, email){
   if(!base) return '';
   const ref=`owner_${packageId}_${qty}`.replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,200);
   const sep=base.includes('?')?'&':'?';
-  const locked=email ? `&locked_prefilled_email=${encodeURIComponent(email)}` : '';
-  return `${base}${sep}client_reference_id=${encodeURIComponent(ref)}${locked}`;
+  return `${base}${sep}client_reference_id=${encodeURIComponent(ref)}`;
 }
 function showToast(text){
   toast.textContent = text;
@@ -3472,6 +3471,14 @@ const CART_KEY='mproductions_cart_v1';
 const ACTIVE=new Set(['active','trialing']);
 const money=pence=>'£'+(Number(pence)/100).toFixed(2);
 
+function ownerCheckoutUrl(base, packageId, qty){
+  if(!base) return '';
+  const ref=`owner_${packageId}_${qty}`.replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,200);
+  const sep=base.includes('?')?'&':'?';
+  return `${base}${sep}client_reference_id=${encodeURIComponent(ref)}`;
+}
+
+
 function syncCartFromButtons(){
   let cart=[]; try{cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]')}catch{}
   if(!Array.isArray(cart)) cart=[];
@@ -3502,7 +3509,7 @@ function applyMemberPrices(rows, ownerCheckoutBase='', ownerEmail=''){
     }
     btn.dataset.deposit=money(dep); btn.dataset.full=money(full);
     btn.dataset.stripeLink=ownerFree
-      ? ownerCheckoutUrl(ownerCheckoutBase, r.package_id, r.track_quantity, ownerEmail)
+      ? ownerCheckoutUrl(ownerCheckoutBase, r.package_id, r.track_quantity)
       : (r.stripe_payment_link||'');
     const line=panel?.querySelector('.discount-line');
     if(line) line.textContent=ownerFree
@@ -3517,6 +3524,8 @@ function applyMemberPrices(rows, ownerCheckoutBase='', ownerEmail=''){
     ? 'Your private owner account has permanent free access. Service bookings still go through Stripe as a £0 checkout so they are recorded normally.'
     : 'Prices below now include your 5% member saving plus the extra member multi-song discount on top of the standard quantity discount.';
   const action=document.getElementById('memberPricingAction'); action.textContent='My Account'; action.href='account.html';
+  if(ownerFree) localStorage.setItem('mproductions_owner_cart_mode','1');
+  else localStorage.removeItem('mproductions_owner_cart_mode');
   syncCartFromButtons();
 }
 
