@@ -85,6 +85,87 @@ html{background:#000}
   }
 }
 
+
+
+/* ===== Seamless galaxy blending =====
+   The photo texture is zoomed and strongly feathered so only the galaxy itself
+   remains visible; the rectangular source-image footprint disappears into space. */
+.real-galaxy{
+  isolation:isolate;
+  overflow:visible;
+  -webkit-mask-image:radial-gradient(ellipse 78% 72% at 50% 50%,
+    #000 0 42%,
+    rgba(0,0,0,.96) 52%,
+    rgba(0,0,0,.78) 62%,
+    rgba(0,0,0,.48) 72%,
+    rgba(0,0,0,.20) 82%,
+    transparent 97%);
+  mask-image:radial-gradient(ellipse 78% 72% at 50% 50%,
+    #000 0 42%,
+    rgba(0,0,0,.96) 52%,
+    rgba(0,0,0,.78) 62%,
+    rgba(0,0,0,.48) 72%,
+    rgba(0,0,0,.20) 82%,
+    transparent 97%);
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-size:100% 100%;
+  mask-size:100% 100%;
+}
+.galaxy-photo-layer{
+  inset:-15% -18% !important;
+  background-size:138% auto !important;
+  background-position:50% 50% !important;
+  filter:saturate(1.08) contrast(1.42) brightness(1.08) !important;
+}
+/* A second soft vignette crushes the source photo's dark sky to true black
+   without reducing the bright galactic arms and core. */
+.real-galaxy::after{
+  content:"";
+  position:absolute;
+  inset:-2%;
+  z-index:6;
+  pointer-events:none;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,
+    transparent 0 43%,
+    rgba(0,0,0,.04) 52%,
+    rgba(0,0,0,.18) 63%,
+    rgba(0,0,0,.48) 76%,
+    rgba(0,0,0,.88) 94%,
+    #000 100%);
+}
+.galaxy-soft-core{z-index:7}
+
+/* Slightly different crops keep repeated galaxies from reading as the same photo. */
+.rg-1 .galaxy-photo-layer,.rg-4 .galaxy-photo-layer{background-position:46% 49% !important}
+.rg-2 .galaxy-photo-layer,.rg-5 .galaxy-photo-layer{background-position:54% 51% !important}
+.rg-3 .galaxy-photo-layer,.rg-6 .galaxy-photo-layer{background-position:50% 47% !important}
+
+@media(max-width:700px){
+  .real-galaxy{
+    -webkit-mask-image:radial-gradient(ellipse 76% 70% at 50% 50%,
+      #000 0 38%,
+      rgba(0,0,0,.94) 50%,
+      rgba(0,0,0,.70) 62%,
+      rgba(0,0,0,.38) 74%,
+      rgba(0,0,0,.14) 84%,
+      transparent 97%);
+    mask-image:radial-gradient(ellipse 76% 70% at 50% 50%,
+      #000 0 38%,
+      rgba(0,0,0,.94) 50%,
+      rgba(0,0,0,.70) 62%,
+      rgba(0,0,0,.38) 74%,
+      rgba(0,0,0,.14) 84%,
+      transparent 97%);
+  }
+  .galaxy-photo-layer{
+    inset:-17% -20% !important;
+    background-size:145% auto !important;
+    filter:saturate(1.06) contrast(1.46) brightness(1.05) !important;
+  }
+}
+
 </style>
 <link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/></head>
 <body class="space-page">
@@ -166,6 +247,14 @@ html{background:#000}
 <p>Membership benefits apply only while the subscription is active or trialing. If a payment fails or the membership ends, member-only pricing and sample access can be suspended. Existing paid project bookings remain governed by the price and terms accepted when they were booked.</p>
 <p>To cancel a membership, contact Mproductions before the next renewal. Cancellation does not automatically refund a subscription period already paid except where required by law.</p>
 </section>
+
+<section class="card" id="sample-pack-terms">
+<h2>Sample packs and digital downloads</h2>
+<p>Mproductions may sell downloadable sample packs separately from production services. The Nova Kit Pack is currently priced at £25 as a one-time digital purchase and is included at no additional charge while an Mproductions membership is active.</p>
+<p>Sample-pack purchases provide a personal licence to use the supplied sounds in the purchaser’s own music and productions. The purchaser must not resell, redistribute, repackage or share the sample files as a standalone sample library.</p>
+<p>Where digital content is supplied immediately, cancellation and refund rights can differ from service bookings. Nothing in these terms removes statutory consumer rights that cannot legally be excluded.</p>
+</section>
+
 <p class="small">This is a practical website terms draft, not legal advice. Before relying on it as final legal wording, Mproductions should have it reviewed for its exact business circumstances and add any legally required trader/business address and identification details.</p>
 </main>
 </body>

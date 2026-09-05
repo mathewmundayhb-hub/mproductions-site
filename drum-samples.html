@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#000000" name="theme-color"/>
-<title>Samples — Mproductions</title>
+<title>Drum Samples — Mproductions</title>
 <meta content="Professional mixing, mastering and production." name="description"/>
 <style>
     :root{
@@ -2273,6 +2273,20 @@ html{background:#000}
 .nova-inline-link:hover{border-color:#8b788f}
 
 
+/* Drum sample pack list */
+.nova-pack-list{padding:28px 0 80px}
+.nova-pack-card{min-height:190px;display:grid;grid-template-columns:90px minmax(0,1fr) 38px;gap:22px;align-items:center;padding:28px;border:1px solid #544759;background:radial-gradient(circle at 15% 30%,rgba(129,79,130,.10),transparent 34%),linear-gradient(145deg,rgba(18,14,20,.98),rgba(5,5,6,.99));text-decoration:none;box-shadow:0 24px 70px rgba(0,0,0,.55);transition:transform .16s ease,border-color .16s ease}
+.nova-pack-card:hover{transform:translateY(-2px);border-color:#8a758d}
+.nova-pack-orbit{width:82px;height:82px;border:1px solid #67566b;border-radius:50%;position:relative;background:radial-gradient(circle,rgba(231,214,233,.82) 0 3%,rgba(130,83,132,.22) 4% 16%,transparent 17%),repeating-conic-gradient(from 12deg,rgba(141,103,147,.16) 0 4deg,transparent 5deg 22deg)}
+.nova-pack-orbit:after{content:"";position:absolute;left:5%;right:5%;top:46%;height:8%;background:#050406;transform:rotate(-13deg);border-radius:50%}
+.nova-pack-status{display:block;color:#c5a9c7;text-transform:uppercase;letter-spacing:.17em;font-size:.67rem;margin-bottom:7px}
+.nova-pack-copy h2{margin:0 0 8px;font-size:clamp(28px,4vw,42px)}
+.nova-pack-copy p{margin:0 0 8px;color:#b2a9b4}
+.nova-pack-copy strong{font-size:.88rem;color:#d7ced8;font-weight:normal}
+.nova-pack-arrow{font-size:2rem;color:#9b899e;text-align:right}
+@media(max-width:620px){.nova-pack-card{grid-template-columns:66px minmax(0,1fr);gap:15px;padding:20px}.nova-pack-orbit{width:62px;height:62px}.nova-pack-arrow{display:none}}
+
+
 
 /* ===== Seamless galaxy blending =====
    The photo texture is zoomed and strongly feathered so only the galaxy itself
@@ -2442,49 +2456,30 @@ html{background:#000}
 <div class="dust d2"></div>
 </div><div aria-hidden="true" class="real-galaxy-field"><div class="real-galaxy rg-1" style="top:4%;left:-9%;width:590px;opacity:.38;--tilt:-14deg;"><div class="galaxy-photo-layer galaxy-outer galaxy-outer-1"></div><div class="galaxy-photo-layer galaxy-mid galaxy-mid-1"></div><div class="galaxy-photo-layer galaxy-core galaxy-core-1"></div><div class="galaxy-soft-core"></div></div><div class="real-galaxy rg-3" style="top:39%;left:11%;width:430px;opacity:.27;--tilt:-18deg;"><div class="galaxy-photo-layer galaxy-outer galaxy-outer-3"></div><div class="galaxy-photo-layer galaxy-mid galaxy-mid-3"></div><div class="galaxy-photo-layer galaxy-core galaxy-core-3"></div><div class="galaxy-soft-core"></div></div><div class="real-galaxy rg-5" style="top:74%;left:-10%;width:500px;opacity:.29;--tilt:17deg;"><div class="galaxy-photo-layer galaxy-outer galaxy-outer-5"></div><div class="galaxy-photo-layer galaxy-mid galaxy-mid-5"></div><div class="galaxy-photo-layer galaxy-core galaxy-core-5"></div><div class="galaxy-soft-core"></div></div></div>
 <div class="topline"></div>
-<header class="sample-page-hero wrap"><div class="sample-top-links"><a class="sample-back" href="index.html">← Back to Mproductions</a><a class="sample-account-link" href="membership.html">Membership</a><a class="sample-account-link" href="account.html">Account</a></div>
-<div class="sample-eyebrow">Mproductions Audio Library</div>
-<h1>Samples</h1>
-<p class="sample-intro">Browse Mproductions sample packs. The Nova Kit is now available under Drum Samples.</p>
-</header>
-<main class="sample-page-main"><section class="wrap sample-member-gate" id="sampleMemberGate">
-<div>
-<span id="sampleMemberKicker">Member Library</span>
-<strong id="sampleMemberTitle">Membership includes sample releases</strong>
-<p id="sampleMemberText">Join for £13/month or £100/year. Yearly is 35.9% cheaper than paying monthly for 12 months, and released Mproductions sample packs are included while membership is active.</p>
-</div>
-<a href="membership.html" id="sampleMemberAction">View Membership</a>
-</section>
 
-<section class="wrap sample-options">
-<a class="sample-category" href="drum-samples.html">
-<div aria-hidden="true" class="sample-category-icon drum-icon">
-<span></span><span></span><span></span>
+<header class="sample-page-hero wrap">
+<div class="sample-top-links">
+<a class="sample-back" href="samples.html">← Back to Samples</a>
+<a class="sample-account-link" href="membership.html">Membership</a>
+<a class="sample-account-link" href="account.html">Account</a>
 </div>
-<div class="sample-category-copy">
-<div class="sample-status">1 Pack Available</div>
-<h2>Drum Samples</h2>
-<p>The Nova Kit Pack · 18 samples · £25 or free for active members.</p>
+<div class="sample-eyebrow">Samples · Drum Samples</div>
+<h1>Drum Samples</h1>
+<p class="sample-intro">Open a pack to hear its public preview and see the member-only sample library.</p>
+</header>
+
+<main class="sample-page-main">
+<section class="wrap nova-pack-list">
+<a class="nova-pack-card" href="nova-kit.html">
+<div class="nova-pack-orbit" aria-hidden="true"><span></span></div>
+<div class="nova-pack-copy">
+<span class="nova-pack-status">Available Now</span>
+<h2>The Nova Kit</h2>
+<p>18 drum samples · 120 BPM · £25</p>
+<strong>Free for active Mproductions members</strong>
 </div>
+<div class="nova-pack-arrow" aria-hidden="true">→</div>
 </a>
-<a aria-disabled="true" class="sample-category sample-category-disabled" href="#" onclick="return false;">
-<div aria-hidden="true" class="sample-category-icon impact-icon">
-<i></i><i></i><i></i><i></i>
-</div>
-<div class="sample-category-copy">
-<div class="sample-status">Coming Soon</div>
-<h2>Impacts</h2>
-<p>No impact packs uploaded yet.</p>
-</div>
-</a>
-</section>
-<section class="wrap sample-empty-note">
-<div class="sample-empty-card">
-<span>Latest Release</span>
-<strong>The Nova Kit Pack</strong>
-<p>18 drum samples at 120 BPM. £25 for non-members and included free while membership is active.</p>
-<a class="nova-inline-link" href="nova-kit.html">Open The Nova Kit →</a>
-</div>
 </section>
 </main>
 <footer class="wrap sample-footer">
@@ -2492,22 +2487,5 @@ html{background:#000}
 <span>·</span>
 <a href="terms.html">Terms &amp; Cancellation</a>
 </footer>
-<script type="module">async function mpDeferredSupabaseEnhancement(){
-
-const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-const sb=createClient('https://ymhajkkncmijsfmybdvs.supabase.co','sb_publishable_AzIFWfzAgBNiw5m14-ttIw_q6F_708C',{auth:{persistSession:true,autoRefreshToken:true}});
-const gate=document.getElementById('sampleMemberGate'), title=document.getElementById('sampleMemberTitle'), text=document.getElementById('sampleMemberText'), action=document.getElementById('sampleMemberAction'), kicker=document.getElementById('sampleMemberKicker');
-try{
- const {data:{session}}=await sb.auth.getSession();
- if(session?.user){
-   const {data:m}=await sb.from('memberships').select('status').eq('user_id',session.user.id).maybeSingle();
-   if(m && ['active','trialing'].includes(m.status)){gate.classList.add('active');kicker.textContent='Member Access Active';title.textContent='Your sample library is unlocked';text.textContent='The Nova Kit Pack is included while your membership remains active. Open Drum Samples to access it.';action.textContent='My Account';action.href='account.html';}
- }
-}catch(e){}
-
-}
-const mpRunDeferred=()=>mpDeferredSupabaseEnhancement().catch(()=>{});
-if('requestIdleCallback' in window) requestIdleCallback(mpRunDeferred,{timeout:1600});
-else setTimeout(mpRunDeferred,650);
-</script></body>
+</body>
 </html>
