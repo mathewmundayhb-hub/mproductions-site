@@ -2381,8 +2381,136 @@ body{
 .sample-member-gate{margin-top:0;margin-bottom:18px;padding:15px;border:1px solid #55485a;background:linear-gradient(125deg,rgba(42,27,44,.48),rgba(7,8,9,.9));display:flex;align-items:center;justify-content:space-between;gap:18px}
 .sample-member-gate span{display:block;color:#9c8ba2;text-transform:uppercase;letter-spacing:.15em;font-size:.59rem;margin-bottom:4px}.sample-member-gate strong{display:block;color:#e8e0ea;font-size:1rem;font-weight:500}.sample-member-gate p{margin:5px 0 0;color:#928996;font-size:.75rem;line-height:1.45}.sample-member-gate a{flex:0 0 auto;display:flex;align-items:center;justify-content:center;min-height:40px;padding:0 13px;border:1px solid #5b4d61;background:#100d11;color:#ece5ee;text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-size:.61rem}.sample-member-gate.active{border-color:#607166;background:linear-gradient(125deg,rgba(25,43,31,.48),rgba(7,9,8,.9))}.sample-member-gate.active span{color:#a7bbaa}@media(max-width:680px){.sample-member-gate{align-items:flex-start;flex-direction:column}.sample-member-gate a{width:100%}}
 
+
+
+/* ===== Brighter galaxies + lightweight cosmic navigation ===== */
+
+/* Make the existing embedded galaxy art more visible without adding image weight. */
+.real-galaxy{
+  scale:1.08;
+  filter:
+    drop-shadow(0 0 30px rgba(238,218,248,.12))
+    drop-shadow(0 0 82px rgba(142,92,160,.12))
+    drop-shadow(0 0 120px rgba(65,105,116,.05));
+}
+.galaxy-photo-layer{
+  filter:saturate(1.10) contrast(1.16) brightness(1.18) !important;
+}
+.galaxy-mid{opacity:.98 !important}
+.galaxy-core{opacity:1 !important}
+.galaxy-soft-core{
+  background:radial-gradient(circle,
+    rgba(255,252,245,.76) 0 9%,
+    rgba(255,230,210,.36) 22%,
+    rgba(221,183,213,.16) 45%,
+    transparent 73%) !important;
+  filter:blur(4px) drop-shadow(0 0 10px rgba(240,220,246,.28)) !important;
+}
+
+/* The navigation effect is CSS-only: no extra images, video, canvas or libraries. */
+.fast-page-fade{
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(233,224,242,.10) 0 2%,rgba(113,72,126,.22) 8%,rgba(37,72,80,.13) 24%,transparent 48%),
+    radial-gradient(circle at 50% 50%,rgba(61,41,69,.32),transparent 54%),
+    #000 !important;
+  transition:opacity .13s ease,visibility 0s linear .14s !important;
+  animation:cosmicArrival .30s ease-out both;
+}
+.fast-page-fade::before{
+  content:"";
+  position:absolute;
+  inset:-75%;
+  opacity:0;
+  transform:scale(.42) rotate(0deg);
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%,
+      transparent 0deg 3.3deg,
+      rgba(233,239,255,.00) 3.35deg 3.7deg,
+      rgba(222,231,255,.42) 3.72deg 3.84deg,
+      transparent 3.87deg 7.5deg);
+  -webkit-mask-image:radial-gradient(circle at center,transparent 0 7%,#000 15% 66%,transparent 88%);
+  mask-image:radial-gradient(circle at center,transparent 0 7%,#000 15% 66%,transparent 88%);
+  filter:blur(.25px) drop-shadow(0 0 5px rgba(197,213,255,.18));
+  will-change:transform,opacity;
+}
+.fast-page-fade::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:16vmin;
+  height:16vmin;
+  border-radius:50%;
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.14);
+  background:
+    radial-gradient(circle,
+      rgba(255,255,255,.96) 0 2%,
+      rgba(231,217,239,.72) 5%,
+      rgba(133,94,148,.34) 18%,
+      rgba(56,101,108,.17) 39%,
+      transparent 69%);
+  box-shadow:
+    0 0 38px rgba(222,205,231,.28),
+    0 0 90px rgba(116,75,132,.20);
+  will-change:transform,opacity;
+}
+.fast-page-fade.active{
+  opacity:1 !important;
+  visibility:visible !important;
+  animation:none !important;
+  transition:opacity .11s ease !important;
+}
+.fast-page-fade.active::before{
+  animation:warpStreaks .21s cubic-bezier(.22,.74,.25,1) both;
+}
+.fast-page-fade.active::after{
+  animation:warpCore .21s ease-in both;
+}
+
+@keyframes warpStreaks{
+  0%{opacity:0;transform:scale(.38) rotate(-4deg)}
+  24%{opacity:.16}
+  72%{opacity:.72}
+  100%{opacity:.18;transform:scale(2.65) rotate(4deg)}
+}
+@keyframes warpCore{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.10)}
+  48%{opacity:.38}
+  100%{opacity:.96;transform:translate(-50%,-50%) scale(6.2)}
+}
+
+/* A very short "arrival" glow on the destination page. */
+@keyframes cosmicArrival{
+  0%{visibility:visible;opacity:.92}
+  22%{visibility:visible;opacity:.46}
+  100%{visibility:hidden;opacity:0}
+}
+
+/* Give the existing page fade a tiny depth cue as a new page arrives. */
+body{
+  animation:cosmicPageIn .28s cubic-bezier(.16,.78,.28,1) both !important;
+}
+@keyframes cosmicPageIn{
+  from{opacity:.76;transform:scale(.997)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@media(max-width:700px){
+  .real-galaxy{scale:1.12}
+  .galaxy-photo-layer{filter:saturate(1.08) contrast(1.14) brightness(1.15) !important}
+}
+
+/* Respect accessibility settings and keep navigation immediate. */
+@media(prefers-reduced-motion:reduce){
+  .fast-page-fade{animation:none !important}
+  .fast-page-fade::before,.fast-page-fade::after{animation:none !important}
+  body{animation:none !important}
+}
+
 </style>
-<link href="account.html" rel="prefetch"/><link href="samples.html" rel="prefetch"/><link href="terms.html" rel="prefetch"/><link href="index.html" rel="prefetch"/><link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/><link href="membership.html" rel="prefetch"/></head>
+<link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/></head>
 <body class="space-page"><div aria-hidden="true" class="fast-page-fade" id="fastPageFade"></div><svg aria-hidden="true" class="icon-defs" focusable="false">
 <symbol id="i-wave" viewbox="0 0 24 24">
 <path d="M3 12h2l2-6 3 12 3-16 3 14 2-8 2 4h1"></path>
@@ -2502,18 +2630,6 @@ body{
     return /\.(html)?$/.test(u.pathname) || u.pathname.endsWith('/');
   }
 
-  document.addEventListener('pointerover', function(e){
-    const a = e.target.closest && e.target.closest('a');
-    if(!internalPageLink(a)) return;
-    const href = a.href;
-    if(document.head.querySelector('link[data-fast-preload="'+CSS.escape(href)+'"]')) return;
-    const l = document.createElement('link');
-    l.rel = 'prefetch';
-    l.href = href;
-    l.dataset.fastPreload = href;
-    document.head.appendChild(l);
-  }, {passive:true});
-
   document.addEventListener('click', function(e){
     const a = e.target.closest && e.target.closest('a');
     if(!internalPageLink(a)) return;
@@ -2521,15 +2637,16 @@ body{
     e.preventDefault();
     fade.classList.add('active');
     const href = a.href;
-    setTimeout(function(){ location.href = href; }, 105);
+    setTimeout(function(){ location.href = href; }, 190);
   });
 
   window.addEventListener('pageshow', function(){
     fade.classList.remove('active');
   });
 })();
-</script><script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+</script><script type="module">async function mpDeferredSupabaseEnhancement(){
+
+const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
 const sb=createClient('https://ymhajkkncmijsfmybdvs.supabase.co','sb_publishable_AzIFWfzAgBNiw5m14-ttIw_q6F_708C',{auth:{persistSession:true,autoRefreshToken:true}});
 const gate=document.getElementById('sampleMemberGate'), title=document.getElementById('sampleMemberTitle'), text=document.getElementById('sampleMemberText'), action=document.getElementById('sampleMemberAction'), kicker=document.getElementById('sampleMemberKicker');
 try{
@@ -2539,5 +2656,10 @@ try{
    if(m && ['active','trialing'].includes(m.status)){gate.classList.add('active');kicker.textContent='Member Access Active';title.textContent='Your sample library is unlocked';text.textContent='Any released Mproductions sample packs are included while your membership remains active. New packs will appear here as they are released.';action.textContent='My Account';action.href='account.html';}
  }
 }catch(e){}
+
+}
+const mpRunDeferred=()=>mpDeferredSupabaseEnhancement().catch(()=>{});
+if('requestIdleCallback' in window) requestIdleCallback(mpRunDeferred,{timeout:1600});
+else setTimeout(mpRunDeferred,650);
 </script></body>
 </html>
