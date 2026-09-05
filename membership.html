@@ -2604,6 +2604,7 @@ const choices=document.getElementById('membershipChoiceActions');
 const account=document.getElementById('membershipAccountAction');
 
 function activePlanLabel(plan){
+  if(plan==='owner_free') return 'Owner access';
   if(plan==='yearly_100_gbp') return 'Yearly membership';
   if(plan==='monthly_13_gbp') return 'Monthly membership';
   return 'Membership';
@@ -2612,11 +2613,13 @@ function activePlanLabel(plan){
 try{
   const {data:{session}}=await sb.auth.getSession();
   if(session?.user){
-    const {data:m}=await sb.from('memberships').select('status,membership_plan').eq('user_id',session.user.id).maybeSingle();
-    if(m && ['active','trialing'].includes(m.status)){
+    const {data:m}=await sb.from('memberships').select('status,membership_plan,owner_free_access').eq('user_id',session.user.id).maybeSingle();
+    if(m && (m.owner_free_access || ['active','trialing'].includes(m.status))){
       box.classList.add('active');
-      title.textContent='Membership active';
-      text.textContent=`${activePlanLabel(m.membership_plan)} is active. Your package discounts and member sample access are switched on.`;
+      title.textContent=m.owner_free_access?'Owner access active':'Membership active';
+      text.textContent=m.owner_free_access
+        ? 'This private owner account has permanent free access to all service packages and released sample packs. No membership payment is required.'
+        : `${activePlanLabel(m.membership_plan)} is active. Your package discounts and member sample access are switched on.`;
       choices.hidden=true;
       account.hidden=false;
     }else{

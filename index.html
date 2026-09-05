@@ -3364,6 +3364,7 @@ function renderCart(){
     depositTotal += moneyValue(item.deposit);
     const el = document.createElement('article');
     el.className = 'basket-item';
+    const freeAccess = moneyValue(item.deposit)===0 || !item.link;
     el.innerHTML = `
       <div class="basket-item-top">
         <div class="basket-item-title">
@@ -3374,11 +3375,12 @@ function renderCart(){
       </div>
       <div class="basket-prices">
         <span>Full project</span><strong>${esc(item.full)}</strong>
-        <span>Deposit today</span><strong>${esc(item.deposit)}</strong>
+        <span>${freeAccess?'Payment required':'Deposit today'}</span><strong>${esc(item.deposit)}</strong>
       </div>
-      <a class="basket-checkout" href="${esc(item.link)}" target="_blank" rel="noopener noreferrer">
-        Pay ${esc(item.deposit)} Deposit
-      </a>`;
+      ${freeAccess
+        ? `<a class="basket-checkout" href="#send-stems">Start Free Project</a>`
+        : `<a class="basket-checkout" href="${esc(item.link)}" target="_blank" rel="noopener noreferrer">Pay ${esc(item.deposit)} Deposit</a>`
+      }`;
     basketItems.appendChild(el);
   });
 
@@ -3456,6 +3458,7 @@ function syncCartFromButtons(){
 }
 
 function applyMemberPrices(rows){
+  const ownerFree=rows.length===40 && rows.every(r=>Number(r.full_amount_pence)===0 && Number(r.deposit_amount_pence)===0);
   const byKey=new Map(rows.map(r=>[`${r.package_id}::${r.track_quantity}`,r]));
   document.querySelectorAll('.add-to-basket').forEach(btn=>{
     const r=byKey.get(`${btn.dataset.packageId}::${btn.dataset.quantity}`); if(!r) return;
@@ -3465,19 +3468,24 @@ function applyMemberPrices(rows){
     const perTrack=Math.round(full/qty);
     if(strong && strong.length>=6){
       strong[0].textContent=money(perTrack);
-      strong[2].textContent=`${r.discount_percent}% member`;
+      strong[2].textContent=ownerFree?'Owner free':`${r.discount_percent}% member`;
       strong[3].textContent=money(full);
       strong[4].textContent=money(dep);
       strong[5].textContent=money(bal);
     }
-    btn.dataset.deposit=money(dep); btn.dataset.full=money(full); btn.dataset.stripeLink=r.stripe_payment_link;
+    btn.dataset.deposit=money(dep); btn.dataset.full=money(full); btn.dataset.stripeLink=r.stripe_payment_link||'';
     const line=panel?.querySelector('.discount-line');
-    if(line) line.textContent=`Member price active — ${r.discount_percent}% total discount. 50% deposit today; the rest is only due after the first revision if you continue.`;
+    if(line) line.textContent=ownerFree
+      ? 'Owner access active — this project is free on your account. No Stripe payment is required.'
+      : `Member price active — ${r.discount_percent}% total discount. 50% deposit today; the rest is only due after the first revision if you continue.`;
   });
   document.body.classList.add('member-price-active');
-  document.getElementById('memberPricingKicker').textContent='Member Pricing Active';
-  document.getElementById('memberPricingTitle').textContent='Your membership discount is applied';
-  document.getElementById('memberPricingText').textContent='Prices below now include your 5% member saving plus the extra member multi-song discount on top of the standard quantity discount.';
+  if(ownerFree) document.body.classList.add('owner-free-active');
+  document.getElementById('memberPricingKicker').textContent=ownerFree?'Owner Access Active':'Member Pricing Active';
+  document.getElementById('memberPricingTitle').textContent=ownerFree?'Everything is free on this account':'Your membership discount is applied';
+  document.getElementById('memberPricingText').textContent=ownerFree
+    ? 'Your private owner account has permanent free access to all Mproductions service packages and released sample packs.'
+    : 'Prices below now include your 5% member saving plus the extra member multi-song discount on top of the standard quantity discount.';
   const action=document.getElementById('memberPricingAction'); action.textContent='My Account'; action.href='account.html';
   syncCartFromButtons();
 }
@@ -3487,8 +3495,8 @@ try{
   if(session?.user){
     const name=session.user.user_metadata?.full_name?.trim();
     const dock=document.getElementById('dockAccountText'); if(dock) dock.textContent=name?`My Account · ${name}`:'My Account';
-    const {data:membership}=await supabase.from('memberships').select('status,current_period_end').eq('user_id',session.user.id).maybeSingle();
-    if(membership && ACTIVE.has(membership.status)){
+    const {data:membership}=await supabase.from('memberships').select('status,current_period_end,owner_free_access').eq('user_id',session.user.id).maybeSingle();
+    if(membership && (membership.owner_free_access || ACTIVE.has(membership.status))){
       const {data:prices,error}=await supabase.rpc('get_my_member_prices');
       if(!error && Array.isArray(prices) && prices.length===40) applyMemberPrices(prices);
     }

@@ -2500,8 +2500,8 @@ const gate=document.getElementById('sampleMemberGate'), title=document.getElemen
 try{
  const {data:{session}}=await sb.auth.getSession();
  if(session?.user){
-   const {data:m}=await sb.from('memberships').select('status').eq('user_id',session.user.id).maybeSingle();
-   if(m && ['active','trialing'].includes(m.status)){gate.classList.add('active');kicker.textContent='Member Access Active';title.textContent='Your sample library is unlocked';text.textContent='The Nova Kit Pack is included while your membership remains active. Open Drum Samples to access it.';action.textContent='My Account';action.href='account.html';}
+   const {data:m}=await sb.from('memberships').select('status,owner_free_access').eq('user_id',session.user.id).maybeSingle();
+   if(m && (m.owner_free_access || ['active','trialing'].includes(m.status))){gate.classList.add('active');kicker.textContent=m.owner_free_access?'Owner Access Active':'Member Access Active';title.textContent='Your sample library is unlocked';text.textContent=m.owner_free_access?'All released Mproductions sample packs are free on this private owner account. Open Drum Samples to access them.':'The Nova Kit Pack is included while your membership remains active. Open Drum Samples to access it.';action.textContent='My Account';action.href='account.html';}
  }
 }catch(e){}
 

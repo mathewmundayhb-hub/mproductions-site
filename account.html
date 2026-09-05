@@ -3022,15 +3022,18 @@ const planDisplay=document.getElementById('membershipPlanDisplay');
 const ACTIVE=new Set(['active','trialing']);
 
 function renderMembership(m){
-  const planLabel=m?.membership_plan==='yearly_100_gbp'?'Yearly · £100/year':m?.membership_plan==='monthly_13_gbp'?'Monthly · £13/month':'Monthly or yearly';
+  const ownerFree=!!m?.owner_free_access;
+  const planLabel=ownerFree?'Owner · Permanent Free Access':m?.membership_plan==='yearly_100_gbp'?'Yearly · £100/year':m?.membership_plan==='monthly_13_gbp'?'Monthly · £13/month':'Monthly or yearly';
   if(planDisplay) planDisplay.textContent=planLabel;
-  const active=m && ACTIVE.has(m.status);
+  const active=m && (ownerFree || ACTIVE.has(m.status));
   card?.classList.toggle('active',!!active);
   if(active){
-    title.textContent='Mproductions Member'; badge.textContent='Active';
-    text.textContent='Your member benefits are active. Package prices on the homepage automatically switch to your member rates while you are signed in.';
-    join.textContent='Membership Active'; join.href='membership.html';
-    samples.textContent='Open Member Samples';
+    title.textContent=ownerFree?'Mproductions Owner Account':'Mproductions Member'; badge.textContent=ownerFree?'Owner':'Active';
+    text.textContent=ownerFree
+      ? 'Permanent private owner access is active. All service packages and released sample packs are free on this account only.'
+      : 'Your member benefits are active. Package prices on the homepage automatically switch to your member rates while you are signed in.';
+    join.textContent=ownerFree?'Owner Access Active':'Membership Active'; join.href='membership.html';
+    samples.textContent=ownerFree?'Open Free Samples':'Open Member Samples';
   }else{
     title.textContent='Membership available'; badge.textContent=m?.status==='past_due'?'Payment issue':'Not active';
     text.textContent='Join for £13/month to unlock included sample releases, 5% off packages and an extra 2% member discount for every additional song.';
@@ -3041,7 +3044,7 @@ function renderMembership(m){
 
 async function loadMembershipForUser(user){
   if(!user){ renderMembership(null); return; }
-  const {data}=await supabase.from('memberships').select('status,current_period_end,membership_plan').eq('user_id',user.id).maybeSingle();
+  const {data}=await supabase.from('memberships').select('status,current_period_end,membership_plan,owner_free_access').eq('user_id',user.id).maybeSingle();
   renderMembership(data);
 }
 
@@ -3053,7 +3056,7 @@ if(q.get('membership')==='thanks'){
   for(let i=0;i<10;i++){
     await new Promise(r=>setTimeout(r,2000));
     const {data:{session}}=await supabase.auth.getSession(); if(!session?.user) break;
-    const {data}=await supabase.from('memberships').select('status,current_period_end,membership_plan').eq('user_id',session.user.id).maybeSingle();
+    const {data}=await supabase.from('memberships').select('status,current_period_end,membership_plan,owner_free_access').eq('user_id',session.user.id).maybeSingle();
     renderMembership(data);
     if(data && ACTIVE.has(data.status)){
       if(msg) msg.textContent='Membership active — your discounts and sample access are ready.';
