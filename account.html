@@ -2600,7 +2600,53 @@ html{background:#000}
 }
 
 </style>
-<link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/></head>
+<link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/><script>
+/* Mproductions referral tracking: stores a referral for 30 days and attaches it to Stripe checkout. */
+(function(){
+  const KEY='mproductions_referral_v1';
+  const LIFE=30*24*60*60*1000;
+  function clean(v){
+    v=String(v||'').trim().toUpperCase();
+    return /^[A-Z0-9]{6,16}$/.test(v)?v:'';
+  }
+  function read(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+      const code=clean(saved&&saved.code);
+      if(!code || !saved.expires || Number(saved.expires)<Date.now()){
+        localStorage.removeItem(KEY); return '';
+      }
+      return code;
+    }catch(e){ return ''; }
+  }
+  const incoming=clean(new URLSearchParams(location.search).get('ref'));
+  if(incoming){
+    try{localStorage.setItem(KEY,JSON.stringify({code:incoming,expires:Date.now()+LIFE}));}catch(e){}
+  }
+  function withCheckout(url){
+    const code=read();
+    if(!code || !url) return url;
+    try{
+      const u=new URL(url,location.href);
+      if(!/(^|\.)stripe\.com$/i.test(u.hostname)) return url;
+      if(!u.searchParams.has('client_reference_id')) u.searchParams.set('client_reference_id','ref_'+code);
+      return u.href;
+    }catch(e){ return url; }
+  }
+  window.MP_REFERRAL={code:read,withCheckout};
+  document.addEventListener('click',function(e){
+    const a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+    if(!a) return;
+    const next=withCheckout(a.href);
+    if(next && next!==a.href) a.href=next;
+  },true);
+})();
+</script>
+<style>
+.referral-account-card{margin:18px 0;padding:18px;border:1px solid #614f69;background:linear-gradient(145deg,rgba(42,25,45,.62),rgba(7,7,9,.92));box-shadow:0 18px 48px rgba(0,0,0,.22)}
+.referral-account-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.referral-account-head span{display:block;color:#a48daa;text-transform:uppercase;letter-spacing:.14em;font-size:.60rem;margin-bottom:5px}.referral-account-head strong{display:block;color:#eee6ef;font-size:1.12rem;font-weight:500}.referral-account-head em{font-style:normal;border:1px solid #6a576f;padding:5px 8px;color:#c8b4ce;text-transform:uppercase;letter-spacing:.08em;font-size:.57rem}.referral-account-card p{color:#a89baa;font-size:.78rem;line-height:1.55;margin:10px 0 14px}.referral-link-row{display:grid;grid-template-columns:1fr auto;gap:8px}.referral-link-row input{min-width:0;border:1px solid #413744;background:#080709;color:#d6cbd9;padding:11px 12px;font:12px/1.2 Arial,Helvetica,sans-serif}.referral-copy{border:1px solid #67556d;background:#171019;color:#f1e9f2;padding:0 15px;cursor:pointer;text-transform:uppercase;letter-spacing:.07em;font-size:.62rem}.referral-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.referral-stat{border:1px solid #342c37;background:#09080a;padding:10px}.referral-stat span{display:block;color:#877b8b;text-transform:uppercase;letter-spacing:.09em;font-size:.56rem}.referral-stat strong{display:block;color:#eee8ef;margin-top:4px;font-size:1rem}.referral-credit-note{display:block;color:#796e7c;font-size:.66rem;line-height:1.45;margin-top:10px}@media(max-width:650px){.referral-link-row{grid-template-columns:1fr}.referral-copy{min-height:42px}.referral-stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
 <body class="space-page"><svg aria-hidden="true" class="icon-defs" focusable="false">
 <symbol id="i-wave" viewbox="0 0 24 24">
 <path d="M3 12h2l2-6 3 12 3-16 3 14 2-8 2 4h1"></path>
@@ -2734,6 +2780,12 @@ html{background:#000}
 <a href="membership.html" id="membershipJoinButton">Choose Membership</a>
 <a href="samples.html" id="membershipSamplesButton">Samples</a>
 </div>
+</section><section class="referral-account-card" id="referralAccountCard">
+<div class="referral-account-head"><div><span>Referral Rewards</span><strong>Give a friend your link</strong></div><em>£10 Credit</em></div>
+<p>When a referred customer uses your link and completes their first qualifying paid Mproductions purchase, you earn £10 studio credit.</p>
+<div class="referral-link-row"><input id="referralLinkInput" readonly value="Creating your referral link…" aria-label="Your Mproductions referral link"><button class="referral-copy" id="referralCopyButton" type="button">Copy Link</button></div>
+<div class="referral-stats"><div class="referral-stat"><span>Successful referrals</span><strong id="referralCount">0</strong></div><div class="referral-stat"><span>Available studio credit</span><strong id="referralCredit">£0.00</strong></div></div>
+<small class="referral-credit-note" id="referralCreditNote">Credit is earned after the referred customer’s first successful paid purchase. Self-referrals and £0 checkouts do not qualify.</small>
 </section><div class="account-coming">
 <span>Coming Later</span>
 <strong>Projects · Downloads · Order history</strong>
@@ -3011,6 +3063,45 @@ if (location.protocol === 'file:') {
   setMessage('Preview mode: the page design works here, but account emails should be tested after the site is uploaded to mproductionsaudio.com.', 'success');
 }
 
+
+/* Referral Rewards */
+const referralCard=document.getElementById('referralAccountCard');
+const referralInput=document.getElementById('referralLinkInput');
+const referralCopy=document.getElementById('referralCopyButton');
+const referralCount=document.getElementById('referralCount');
+const referralCredit=document.getElementById('referralCredit');
+const referralNote=document.getElementById('referralCreditNote');
+
+async function loadReferralForUser(user){
+  if(!referralCard) return;
+  if(!user){ referralCard.hidden=true; return; }
+  referralCard.hidden=false;
+  const {data,error}=await supabase.rpc('get_my_referral_summary');
+  const row=Array.isArray(data)?data[0]:data;
+  if(error || !row){
+    referralInput.value='Referral link unavailable — refresh and try again.';
+    referralCopy.disabled=true;
+    return;
+  }
+  referralInput.value=row.referral_url||'';
+  referralCount.textContent=String(row.successful_referrals||0);
+  referralCredit.textContent='£'+(Number(row.credit_pence||0)/100).toFixed(2);
+  referralCopy.disabled=false;
+}
+
+referralCopy?.addEventListener('click',async()=>{
+  const value=referralInput?.value||'';
+  if(!value || !/^https?:/i.test(value)) return;
+  try{
+    await navigator.clipboard.writeText(value);
+    referralCopy.textContent='Copied';
+    setTimeout(()=>referralCopy.textContent='Copy Link',1400);
+  }catch(e){
+    referralInput.focus(); referralInput.select();
+    referralNote.textContent='Your link is selected — choose Copy from the iPhone menu.';
+  }
+});
+
 /* Membership account status — shares the same Supabase client for faster loading. */
 const card=document.getElementById('membershipAccountCard');
 const title=document.getElementById('membershipAccountTitle');
@@ -3065,11 +3156,11 @@ if(q.get('membership')==='thanks'){
   }
 }
 
-if (session?.user) loadMembershipForUser(session.user);
-else renderMembership(null);
+if (session?.user){ loadMembershipForUser(session.user); loadReferralForUser(session.user); }
+else { renderMembership(null); loadReferralForUser(null); }
 
 supabase.auth.onAuthStateChange((_mpEvent, mpSession) => {
-  setTimeout(() => loadMembershipForUser(mpSession?.user || null), 0);
+  setTimeout(() => { loadMembershipForUser(mpSession?.user || null); loadReferralForUser(mpSession?.user || null); }, 0);
 });
 </script>
 <script>

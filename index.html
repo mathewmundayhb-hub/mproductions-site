@@ -2734,7 +2734,52 @@ html{background:#000}
 }
 
 </style>
-<link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/></head>
+<link href="https://open.spotify.com" rel="dns-prefetch"/><link href="https://cdn.jsdelivr.net" rel="dns-prefetch"/><link href="https://ymhajkkncmijsfmybdvs.supabase.co" rel="dns-prefetch"/><script>
+/* Mproductions referral tracking: stores a referral for 30 days and attaches it to Stripe checkout. */
+(function(){
+  const KEY='mproductions_referral_v1';
+  const LIFE=30*24*60*60*1000;
+  function clean(v){
+    v=String(v||'').trim().toUpperCase();
+    return /^[A-Z0-9]{6,16}$/.test(v)?v:'';
+  }
+  function read(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+      const code=clean(saved&&saved.code);
+      if(!code || !saved.expires || Number(saved.expires)<Date.now()){
+        localStorage.removeItem(KEY); return '';
+      }
+      return code;
+    }catch(e){ return ''; }
+  }
+  const incoming=clean(new URLSearchParams(location.search).get('ref'));
+  if(incoming){
+    try{localStorage.setItem(KEY,JSON.stringify({code:incoming,expires:Date.now()+LIFE}));}catch(e){}
+  }
+  function withCheckout(url){
+    const code=read();
+    if(!code || !url) return url;
+    try{
+      const u=new URL(url,location.href);
+      if(!/(^|\.)stripe\.com$/i.test(u.hostname)) return url;
+      if(!u.searchParams.has('client_reference_id')) u.searchParams.set('client_reference_id','ref_'+code);
+      return u.href;
+    }catch(e){ return url; }
+  }
+  window.MP_REFERRAL={code:read,withCheckout};
+  document.addEventListener('click',function(e){
+    const a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+    if(!a) return;
+    const next=withCheckout(a.href);
+    if(next && next!==a.href) a.href=next;
+  },true);
+})();
+</script>
+<style>
+.referral-home{margin:26px auto 6px;padding:20px;border:1px solid #59485f;background:linear-gradient(145deg,rgba(38,23,41,.72),rgba(7,7,9,.92));display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.referral-home .kicker{margin-bottom:5px}.referral-home h2{font-size:clamp(1.45rem,3vw,2rem);margin:0;color:#eee7ef}.referral-home p{margin:7px 0 0;color:#9d919f;font:13px/1.55 Arial,Helvetica,sans-serif;max-width:720px}.referral-home a{min-height:44px;padding:0 18px;border:1px solid #65546b;background:#151017;color:#f3edf4;text-decoration:none;display:flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.08em;font:11px Arial,Helvetica,sans-serif;white-space:nowrap}@media(max-width:650px){.referral-home{grid-template-columns:1fr}.referral-home a{width:100%}}
+</style>
+</head>
 <body class="space-page"><svg aria-hidden="true" class="icon-defs" focusable="false">
 <symbol id="i-wave" viewbox="0 0 24 24">
 <path d="M3 12h2l2-6 3 12 3-16 3 14 2-8 2 4h1"></path>
@@ -3302,7 +3347,7 @@ html{background:#000}
 <span>Mproductions does not automatically take the remaining 50% from your bank or card. The client must choose to continue and actively pay the second secure Stripe link.</span>
 </div>
 </div>
-</section><section id="send-stems">
+</section><section class="wrap referral-home" id="referral-rewards"><div><div class="kicker">Referral Rewards</div><h2>Refer an Artist · Earn £10 Studio Credit</h2><p>Signed-in customers get a personal referral link. When a referred customer uses it and completes their first qualifying paid Mproductions purchase, you earn £10 studio credit.</p></div><a href="account.html">Get My Referral Link</a></section><section id="send-stems">
 <div class="wrap stems">
 <div class="section-title" style="margin-bottom:0">
 <div class="kicker">Project Delivery</div>
